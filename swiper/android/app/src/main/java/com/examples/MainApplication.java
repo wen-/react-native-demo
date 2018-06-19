@@ -2,6 +2,7 @@ package com.examples;
 
 import com.baidu.mobstat.StatService;
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.baidu.reactnativemobstat.RNBaiduMobStatPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -20,6 +21,12 @@ public class MainApplication extends UmengPushApplication implements ReactApplic
 	private static final UmengPushPackage pushPackage = new UmengPushPackage();
 
 	private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+		@Override
+		protected String getJSBundleFile() {
+			return CodePush.getJSBundleFile();
+		}
+
 		@Override
 		public boolean getUseDeveloperSupport() {
 			return BuildConfig.DEBUG;
@@ -27,12 +34,19 @@ public class MainApplication extends UmengPushApplication implements ReactApplic
 
 		@Override
 		protected List<ReactPackage> getPackages() {
+			String RN版本更新密钥 = BuildConfig.RN版本更新密钥;
 			return Arrays.<ReactPackage>asList(
 					new SplashScreenReactPackage(),
 					new MainReactPackage(),
+					new CodePush(RN版本更新密钥, getApplicationContext(), BuildConfig.DEBUG),
 					new RNBaiduMobStatPackage(),
 					pushPackage
 			);
+		}
+
+		@Override
+		protected String getJSMainModuleName() {
+			return "index";
 		}
 	};
 

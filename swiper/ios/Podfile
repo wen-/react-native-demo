@@ -8,5 +8,7 @@ end
 
 target 'examples' do
   pods
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
 end
 
