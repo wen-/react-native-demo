@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"baidumobstat-react-native": "^1.1.4",
+		"crypto-js": "^3.1.9-1",
 		"react": "16.3.1",
 		"react-native": "0.55.4",
 		"react-native-code-push": "^5.3.4",
