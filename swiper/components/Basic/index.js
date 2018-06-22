@@ -20,6 +20,10 @@ var styles = {
 		height:200,
 		backgroundColor:"red",
 	},
+	slide: {
+		flex: 1,
+		backgroundColor: 'transparent'
+	},
 	slide1: {
 		flex: 1,
 		justifyContent: 'center',
@@ -42,20 +46,37 @@ var styles = {
 		color: '#000',
 		fontSize: 30,
 		fontWeight: 'bold'
+	},
+	loadingView: {
+		position: 'absolute',
+		justifyContent: 'center',
+		alignItems: 'center',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		backgroundColor: 'rgba(0,0,0,.5)'
+	},
+
+	loadingImage: {
+		width: 60,
+		height: 60
 	}
 }
 
 const Slide = props => {
-	return (<View style={styles.slide}>
-		<TouchableHighlight onPress={props.jump}>
-			<Image onLoad={props.loadHandle.bind(null, props.i)} style={styles.image} source={{uri: props.uri}} />
-			{
-				!props.loaded && <View style={styles.loadingView}>
-					<Image style={styles.loadingImage} source={loading} />
+	return (
+		<View style={styles.slide}>
+			<TouchableHighlight style={styles.slide} onPress={()=>props.jump(props.link)}>
+				<View style={styles.slide}>
+					<Image onLoad={props.loadHandle.bind(null, props.i)} style={styles.slide} source={{uri: props.uri}} />
+					{!props.loaded && <View style={styles.loadingView}>
+						<Image style={styles.loadingImage} source={loading} />
+					</View>}
 				</View>
-			}
-		</TouchableHighlight>
-	</View>)
+			</TouchableHighlight>
+		</View>
+	)
 }
 
 export default class extends Component {
@@ -76,14 +97,7 @@ export default class extends Component {
 		// 	//为了解决安卓轮播图无法显示的bug
 		// },100);
 		let banner_url = global.配置.域名+接口配置.banner;
-		banner_url = "https://wen-1.github.io/api/data/swiper_banner.json";
-		fetch(banner_url, {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			}
-		}).then((response) => {
+		fetch(banner_url).then((response) => {
 			return response.json();
 		}).then((responseJson) => {
 			if(responseJson.status == 200){
@@ -92,13 +106,6 @@ export default class extends Component {
 					imgList:responseJson.data
 				})
 			}
-			// this.setState({
-			// 	isLoading: false,
-			// 	dataSource: responseJson.movies,
-			// }, function(){
-			//
-			// });
-
 		}).catch((error) =>{
 			console.error(error);
 		});
@@ -116,7 +123,6 @@ export default class extends Component {
 		});
 	};
 
-
 	loadHandle (i) {
 		let loadQueue = this.state.loadQueue
 		loadQueue[i] = 1
@@ -132,8 +138,9 @@ export default class extends Component {
 						this.state.imgList.map((item, i) => <Slide
 							loadHandle={this.loadHandle}
 							loaded={!!this.state.loadQueue[i]}
-							jump={function(){this.jump(item.link)}.bind(this)}
+							jump={this.jump}
 							uri={item.img}
+							link={item.link}
 							i={i}
 							key={i} />)
 					}

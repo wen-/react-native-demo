@@ -153,7 +153,7 @@ android {
             buildConfigField "String", "小米AppKey", "\"\""
             buildConfigField "String", "小米AppID", "\"\""
             buildConfigField "String", "项目名称", "\"模版APP\""
-            buildConfigField "String", "域名", "\"https://wen-.github.io/api/\""
+            buildConfigField "String", "域名", "\"https://wen-xiong.github.io/api/\""
         }
     }
 
@@ -184,6 +184,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.baidu.mobstat:mtj-sdk:latest.integration'  //百度统计
+    implementation 'com.facebook.fresco:fresco:1.5.0'
+    implementation 'com.facebook.fresco:animated-gif:1.5.0'
 }
 
 // Run this once to be able to run the application with BUCK

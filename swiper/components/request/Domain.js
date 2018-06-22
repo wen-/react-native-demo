@@ -1,4 +1,4 @@
 
 export const 接口配置 = {
-	"banner":"data/swiper_banner.json"
+	"banner":"data/react-native/swiper_banner.json"
 };
