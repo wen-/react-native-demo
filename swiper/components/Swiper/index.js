@@ -71,7 +71,7 @@ export default class extends Component {
           </View>
         </Swiper>
 
-        <Swiper style={styles.wrapper} loop={false} height={240}
+        <Swiper style={styles.wrapper} height={240}
                 onScrollBeginDrag={(e, state, context) => {
               console.log('onScrollBeginDrag')
             console.log('index:', state.index)

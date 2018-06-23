@@ -133,7 +133,7 @@ export default class extends Component {
 	showSwiper(){
 		if(this.state.showSlider){
 			return(
-				<Swiper loadMinimal loadMinimalSize={1} style={styles.wrapper} height={200}>
+				<Swiper loadMinimal loadMinimalSize={3} style={styles.wrapper} height={200} loop>
 					{
 						this.state.imgList.map((item, i) => <Slide
 							loadHandle={this.loadHandle}

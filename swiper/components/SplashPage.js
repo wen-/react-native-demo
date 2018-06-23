@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {
-    View,
-    AppState,
-    Linking,
-    NativeModules,
-    NetInfo,
-    Platform, StyleSheet,
+	View,
+	AppState,
+	Linking,
+	NativeModules,
+	NetInfo,
+	Image,Text,
+	Platform, StyleSheet, Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Swiper from 'react-native-swiper';
 import UmengPush from 'react-native-umeng-push';
+const { width, height } = Dimensions.get('window')
 var SplashScreen = NativeModules.SplashScreen;
 
 //获取DeviceToken
@@ -92,9 +95,16 @@ UmengPush.didOpenMessage(message => {
 
 class SplashPage extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state={
+			index:0
+		}
+	}
+
     componentWillMount(){
         SplashScreen.hide();
-        Actions.主界面();
+        //Actions.主界面();
     }
 
     componentDidMount(){
@@ -112,32 +122,68 @@ class SplashPage extends React.Component {
 
     render() {
         return (
-            <View />
+		        <Swiper style={splash.container}
+		                dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+		                activeDot={<View style={{backgroundColor: '#fff', width: 30, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+		                paginationStyle={{
+			                bottom: 50
+		                }}
+		                loop={false}
+		                onMomentumScrollEnd = {(e,s,c)=>{
+			                this.state.index = s.index;
+		                }}
+		                onTouchStartCapture = {(e,s,c)=>{
+			                if(this.state.index == 2){
+				                Actions.主界面();
+			                }
+		                }}
+		                onTouchStart = {(e,s,c)=>{
+			                //code
+		                }}
+		                onTouchEnd = {(e,s,c)=>{
+			                //code
+		                }}
+		                onResponderRelease = {(e,s,c)=>{
+			                //code
+		                }}>
+			        <View style={splash.slide}>
+				        <Image
+					        style={splash.image}
+					        source={require('../assets/images/banner1.jpg')}
+				        />
+			        </View>
+			        <View style={splash.slide}>
+				        <Image
+					        style={splash.image}
+					        source={require('../assets/images/banner2.jpg')}
+				        />
+			        </View>
+			        <View style={splash.slide}>
+				        <Image
+					        style={splash.image}
+					        source={require('../assets/images/banner3.jpg')} />
+			        </View>
+		        </Swiper>
         );
     }
 
 }
 
-const styles1 = StyleSheet.create({
+const splash = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#eee',
     },
-    标签: {
-        fontSize: 12,
-        lineHeight: 12,
-        height: 12,
-        marginBottom: 5,
-    },
-    标签图标: {
-        fontSize: 24,
-        lineHeight: 24,
-        height: 24,
-        fontFamily: 'Entypo',
-        marginTop: 5,
-    }
+	slide: {
+		flex: 1,
+		backgroundColor: 'transparent'
+	},
+	image: {
+		width,
+		height,
+	}
 });
 
 export default SplashPage;
