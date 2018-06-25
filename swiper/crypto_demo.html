@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加解密</title>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/crypto-js/crypto-js.js"></script>
+	<style type="text/css">
+		.ub-con,.ub-fh{width:100%}blockquote,body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,legend,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0;font-size:100%;vertical-align:baseline}table{border-collapse:collapse;border-spacing:0}ol,ul{list-style:none}a{text-decoration:none}a:hover{text-decoration:underline}sup{vertical-align:text-top}sub{vertical-align:text-bottom}legend{color:#000}fieldset,img{border:0}button,h1,h2,h3,h4,h5,h6,input,select,textarea{font-size:100%}input,textarea{outline:0;background:#fff}article,aside,audio,details,figcaption,figure,footer,header,hgroup,mark,menu,nav,section,summary,time,video{display:block;margin:0;padding:0}mark{background:#ff0}.ub-img,.ub-img1{background-repeat:no-repeat;background-position:center}audio,canvas,video{display:inline-block}audio:not([controls]){display:none}address,cite,dfn,em,i,var{font-style:normal}code,kbd,pre,samp{font-family:courier new,courier,monospace}small{font-size:12px}hr{height:.4em;background-color:#eee;border:none}.ub-con,.ub-fv{height:100%}.lfloat{float:left;display:inline}.rfloat{float:right;display:inline}.pr{position:relative}.pa{position:absolute}.inlineb{display:inline-block!important;vertical-align:middle}.clearfix:after,.clearfix:before{content:"";display:table}.clearfix:after{clear:both;overflow:hidden}.clearfix{zoom:1}.clear{clear:both}.tr{text-align:right!important}.tl{text-align:left!important}.tc{text-align:center!important}.tj{text-align:justify!important}.vt{vertical-align:top!important}.vm{vertical-align:middle!important}.vb{vertical-align:bottom!important}.ub{display:-webkit-box!important;display:box!important;position:relative}.ub-rev{-webkit-box-direction:reverse;box-direction:reverse}.ub-con{position:absolute}.ub-f1,.ub-f2,.ub-f3,.ub-f4{position:relative}.ub-ac{-webkit-box-align:center;box-align:center}.ub-ae{-webkit-box-align:end;box-align:end}.ub-pc{-webkit-box-pack:center;box-pack:center}.ub-pe{-webkit-box-pack:end;box-pack:end}.ub-pj{-webkit-box-pack:justify;box-pack:justify}.ub-ver{-webkit-box-orient:vertical;box-orient:vertical}.ub-f1{-webkit-box-flex:1;box-flex:1}.ub-f2{-webkit-box-flex:2;box-flex:2}.ub-f3{-webkit-box-flex:3;box-flex:3}.ub-f4{-webkit-box-flex:4;box-flex:4}.ub-img{background-size:contain}.ub-img1{background-size:cover}.ub-img2{background-repeat:repeat-x;background-size:auto 100%}.ub-img3,.ub-img4{background-size:100% auto}.ub-img3{background-repeat:repeat-y}.ub-img4,.ub-img5,.ub-img6,.ub-img7{background-repeat:no-repeat;background-position:center}.ub-img5{background-size:auto 100%}.ub-img7{background-size:100% 100%}input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{background:0 0!important}input{-webkit-appearance:none;-webkit-tap-highlight-color:#fff}@media all{html{font-size:16px}}@media all and (min-width:140px) and (min-height:220px){html{font-size:9px}}@media all and (min-width:220px) and (min-height:140px){html{font-size:9px}}@media all and (min-width:210px) and (min-height:280px),(min-width:280px) and (min-height:210px),(min-width:280px) and (min-height:280px){html{font-size:14px}}@media all and (min-width:300px) and (min-height:460px),(min-width:460px) and (min-height:300px){html{font-size:16px}}@media all and (min-width:340px) and (min-height:620px),(min-width:620px) and (min-height:340px){html{font-size:20px}}@media all and (min-width:420px) and (min-height:760px) and (max-height:900px),(min-width:760px) and (max-width:900px) and (min-height:420px){html{font-size:24px}}@media all and (min-width:1000px) and (min-height:740px),(min-width:740px) and (min-height:1000px){html{font-size:20px}}@media all and (min-width:1200px) and (min-height:600px),(min-width:600px) and (min-height:1200px){html{font-size:16px}}@media all and (device-width:1024px) ,(device-width:768px){html{font-size:20px}}@media all and (device-width:960px) and (device-height:640px),(device-width:640px) and (device-height:960px){html{font-size:32px}}@media all and (device-width:480px) and (min-device-height:800px) and (max-device-height:900px),(min-device-width:800px) and (max-device-width:900px) and (device-height:480px){html{font-size:24px}}@media all and (device-width:360px) and (device-height:640px),(device-width:640px) and (device-height:360px){html{font-size:20px}}@media all and (device-width:320px) and (device-height:480px),(device-width:480px) and (device-height:320px){html{font-size:16px}}@media all and (device-width:240px) and (device-height:320px),(device-width:320px) and (device-height:240px),(device-width:320px) and (device-height:320px){html{font-size:14px}}
+		.crypto{
+			padding:1em;
+		}
+		label{
+			display: block;
+			width:8em;
+			text-align: right;
+		}
+		input,textarea{
+			border:solid 1px #ccc;
+			padding:5px;
+		}
+		.crypto li{
+			list-style: none;
+			margin-bottom: 1em;
+		}
+		.crypto input,
+		.crypto textarea{
+			display: block;
+		}
+		.crypto textarea{
+			min-height: 10em;
+		}
+		button.btn{
+			border: solid 1px #0b7218;
+			padding: 5px 2em;
+			background-color: #198b0b;
+			color: #fff;
+			border-radius: 6px;
+			box-shadow: 0px 1px 5px #333;
+			cursor: pointer;
+		}
+
+	</style>
+</head>
+<body>
+	<ul class="crypto">
+		<li class="ub">
+			<label>请输入密钥：</label>
+			<input class="ub-f1" type="text" />
+		</li>
+		<li class="ub">
+			<label>请输入加密内容：</label>
+			<textarea class="ub-f1"></textarea>
+		</li>
+		<li class="ub">
+			<label></label>
+			<div>
+				<button type="button" class="btn crypto_btn">加密</button>
+			</div>
+		</li>
+
+		<li class="ub">
+			<label>加密结果：</label>
+			<div class="crypto_txt ub-f1"></div>
+		</li>
+		<li class="ub">
+			<label></label>
+			<div class="crypto_txt_copy">
+				<button type="button" class="btn copy_btn">复制</button>
+			</div>
+		</li>
+	</ul>
+<script>
+	$(function () {
+		let test = CryptoJS.AES.encrypt("ABCD","123456789");
+		let ec = test.toString();
+		console.log("ABCD加密后为："+ec);
+
+		let newtest = CryptoJS.AES.decrypt(ec,"123456789");
+		console.log(ec+"解密后为："+newtest.toString(CryptoJS.enc.Utf8));
+
+			/*加密KEY*/
+		let key = "FO1KQXmtxhlA6PKF";
+		let iv = "XZqkPmDBA6m0SjBP";
+		let k = "JVZ+RWZ8JlQz5KW4ULrjfefdHoJOTukKGF+IAcZeNU0=";//{"mobile":"13533051889"}
+		let dk = CryptoJS.AES.decrypt(k,CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+		console.log(dk.toString(CryptoJS.enc.Utf8));
+
+		let data = {"mobile":"13533051889"};
+		let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+		console.log(ciphertext.toString());
+
+		let e1 = "JVZ+RWZ8JlQz5KW4ULrjfYm0eNPv533+8sSqN/aO72A=";
+		let d1 = CryptoJS.AES.decrypt(e1,CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+		console.log(d1.toString(CryptoJS.enc.Utf8));
+	});
+</script>
+</body>
+</html>
