@@ -9,8 +9,12 @@ import {
 } from 'react-native'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Entypo';
+import CryptoJS from 'crypto-js/core';
+import AES from 'crypto-js/aes';
 import {接口配置} from '../request/Domain';
+import {crypto_config} from '../config/crypto'
 const loading = require('../LoadMinimal/img/loading.gif');
+
 
 var styles = {
 	container: {
@@ -101,10 +105,23 @@ export default class extends Component {
 			return response.json();
 		}).then((responseJson) => {
 			if(responseJson.status == 200){
-				this.setState({
-					showSlider:true,
-					imgList:responseJson.data
-				})
+				if(responseJson.data){
+					let key = crypto_config.AES_KEY;
+					let _v = key.substring(0,16);
+					key = CryptoJS.enc.Utf8.parse(key);
+					let iv = CryptoJS.enc.Utf8.parse(_v);
+					let data = AES.decrypt(responseJson.data,key,{"iv":iv,"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+					data = data.toString(CryptoJS.enc.Utf8);
+					try{
+						data = JSON.parse(data);
+						this.setState({
+							showSlider:true,
+							imgList:data
+						})
+					}catch(err){
+						console.log("JSON解释出错："+data);
+					}
+				}
 			}
 		}).catch((error) =>{
 			console.error(error);

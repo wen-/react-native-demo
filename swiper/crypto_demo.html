@@ -39,6 +39,9 @@
 			box-shadow: 0px 1px 5px #333;
 			cursor: pointer;
 		}
+		.crypto_txt{
+			word-break: break-all;
+		}
 
 	</style>
 </head>
@@ -46,11 +49,11 @@
 	<ul class="crypto">
 		<li class="ub">
 			<label>请输入密钥：</label>
-			<input class="ub-f1" type="text" />
+			<input class="key ub-f1" type="text" />
 		</li>
 		<li class="ub">
 			<label>请输入加密内容：</label>
-			<textarea class="ub-f1"></textarea>
+			<textarea class="txt ub-f1"></textarea>
 		</li>
 		<li class="ub">
 			<label></label>
@@ -72,6 +75,28 @@
 	</ul>
 <script>
 	$(function () {
+		$(".crypto_btn").on("click",function(){
+			let _key = $(".key").val();
+			let _txt = $.trim($(".txt").val());
+			if(_key.length == 16 || _key.length == 24 || _key.length == 32){
+				if(!_txt){
+					alert("加密内容不能为空");
+					return false;
+				}
+				let _v = _key.substring(0,16);
+				let _k = CryptoJS.enc.Utf8.parse(_key);
+				_v = CryptoJS.enc.Utf8.parse(_v);
+				let _c = CryptoJS.AES.encrypt(_txt, _k,{"iv":_v,"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+				_c = _c.toString();
+				console.log(_c);
+				$(".crypto_txt").text(_c);
+			}else{
+				alert("密钥长度为16/24/32位");
+				return false;
+			}
+		});
+
+
 		let test = CryptoJS.AES.encrypt("ABCD","123456789");
 		let ec = test.toString();
 		console.log("ABCD加密后为："+ec);
@@ -79,20 +104,47 @@
 		let newtest = CryptoJS.AES.decrypt(ec,"123456789");
 		console.log(ec+"解密后为："+newtest.toString(CryptoJS.enc.Utf8));
 
-			/*加密KEY*/
+
+//		使用AES加密前，先了解下WordArray，我把它理解成CryptoJS中定义的 新的 数据类型，叫“单词数组”。
+//
+//      2.1 ： 初始化
+//		var wordArray = CryptoJS.lib.WordArray.create();//创建一个空的 WordArray对象
+
+//		2.2 ： WordArray 对象 —>16进制字符串
+//		var string = wordArray.toString();//默认CryptoJS.enc.Hex，即16进制字符串
+//		var string = wordArray.toString(CryptoJS.enc.Utf8);//utf-8字符串
+
+//		2.3 ： 16进制字符串 —>WordArray对象
+//		var wordArray = CryptoJS.enc.Hex.parse(hexString);
+
+//		2.4 ： WordArray对象—>utf8字符串
+//		var utf8String = CryptoJS.enc.Utf8.stringify(wordArray);
+//      //等价于2.2中 wordArray.toString(CryptoJS.enc.Utf8);
+
+//		2.5 ： utf8字符串—>WordArray对象
+//		var wordArray = CryptoJS.enc.Utf8.parse(utf8String);
+
+//		2.6 ： WordArray对象—>Base64字符串
+//		var base64String = CryptoJS.enc.Base64.stringify(wordArray);
+
+//		2.7 ： Base64字符串—>WordArray对象
+//		var wordArray = CryptoJS.enc.Base64.parse(base64String);
+
+		/*加密KEY*/
+		// 密钥key长度必须为16（AES-128）、24（AES-192）、或32（AES-256）Bytes 长度
 		let key = "FO1KQXmtxhlA6PKF";
 		let iv = "XZqkPmDBA6m0SjBP";
-		let k = "JVZ+RWZ8JlQz5KW4ULrjfefdHoJOTukKGF+IAcZeNU0=";//{"mobile":"13533051889"}
-		let dk = CryptoJS.AES.decrypt(k,CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+		key = CryptoJS.enc.Utf8.parse(key);
+		iv = CryptoJS.enc.Utf8.parse(iv);
+
+		//let k = "JVZ+RWZ8JlQz5KW4ULrjfefdHoJOTukKGF+IAcZeNU0=";//{"mobile":"13533051889"}
+		let k = "KKK+6F19ZoJpP+d6t1VXYfmAD/xifPcOY1yYIYeP+NTULYXfb+dHLMhKT/VhDl18z6i8QbqqAQKhlgS5FEoj/Vx0Hz8hLuDizaMI9dFvDaVegQV15BQox+tUkp37Yz5fYFNNPCfjuNQqU8QxFze4kIIo8FmhU9vbE1dzBXCMlvYFKyuhVVyziz3mlV8F0pwvO6uhY0wauYEgiNPrfOZrlq/O7j0VHd70HWXO2Ejs2IBL2gVZ494tes251N6N5+DsAS5FtgW72r6E9HZhcNczLZyoUOMYHC1Pa7sMnpyY11WAdYlgVUZklwCEzydESAMcRjBJWoK07DOC3uOzyiUzxZ0LdqZ6wAb/Zsl0E9MJ2QGquX4aLKFBbQ9o3NpCNLd2hq9+rwjOPHvXoiGI2KPWN07B3iKCSJdi0vur2iaU0MzAJH5X58Drj196ITT3m8csFEPOrB3/AJz6MpqAfn1ygEsblEYx7utKsjzKPjLREtwujI0AjlJNWtktjzW8gSQnCEFsHV7+tRQUStHsorPxfpT7axkHWSAMNFibBD+lWG2pqv3PiiOhVY+MtM8fetqd";
+		let dk = CryptoJS.AES.decrypt(k,key,{"iv":key,"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
 		console.log(dk.toString(CryptoJS.enc.Utf8));
 
 		let data = {"mobile":"13533051889"};
-		let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
+		let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), key,{"iv":iv,"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
 		console.log(ciphertext.toString());
-
-		let e1 = "JVZ+RWZ8JlQz5KW4ULrjfYm0eNPv533+8sSqN/aO72A=";
-		let d1 = CryptoJS.AES.decrypt(e1,CryptoJS.enc.Utf8.parse(key),{"iv":CryptoJS.enc.Utf8.parse(iv),"mode": CryptoJS.mode.CBC,"padding":CryptoJS.pad.Pkcs7});
-		console.log(d1.toString(CryptoJS.enc.Utf8));
 	});
 </script>
 </body>
