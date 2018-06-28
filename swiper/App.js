@@ -22,6 +22,7 @@ import {
 } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Entypo';
+import storage from './components/Utils/StorageUtil';
 
 import Basic from './components/Basic/'
 import Dynamic from './components/Dynamic/'

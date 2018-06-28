@@ -103,8 +103,21 @@ class SplashPage extends React.Component {
 	}
 
     componentWillMount(){
-        SplashScreen.hide();
-        //Actions.主界面();
+	    storage.load({
+		    key: 'showSplash',
+	    }).then(ret => {
+		    if(!ret){
+			    SplashScreen.hide();
+			    Actions.主界面();
+		    }
+	    }).catch(err => {
+		    SplashScreen.hide();
+		    storage.save({
+			    key: 'showSplash',
+			    data: false
+		    });
+	    });
+
     }
 
     componentDidMount(){
