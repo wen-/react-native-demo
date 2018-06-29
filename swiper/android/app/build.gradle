@@ -112,9 +112,9 @@ android {
     signingConfigs {
         demo {
             keyAlias 'demokey'
-            keyPassword '123456'
+            keyPassword '654321'
             storeFile file('demo.jks')
-            storePassword '654321'
+            storePassword '123456'
         }
     }
     splits {
