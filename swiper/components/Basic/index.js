@@ -106,7 +106,7 @@ export default class extends Component {
 		}).then((responseJson) => {
 			if(responseJson.status == 200){
 				if(responseJson.data){
-					let key = crypto_config.AES_KEY;
+					let key = global.配置.AES_KEY;
 					let _v = key.substring(0,16);
 					key = CryptoJS.enc.Utf8.parse(key);
 					let iv = CryptoJS.enc.Utf8.parse(_v);

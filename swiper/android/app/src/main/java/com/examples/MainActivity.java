@@ -83,6 +83,7 @@ public class MainActivity extends ReactActivity {
             @Nullable
             @Override
             protected Bundle getLaunchOptions() {
+                String crypto_key = "FO1KQXmtxhlA6PKF";
                 Bundle initialProps = new Bundle();
                 //Bundle config = new Bundle();
                 JSONObject config = new JSONObject();
@@ -123,6 +124,11 @@ public class MainActivity extends ReactActivity {
                     }catch (IllegalArgumentException ex){
                         ex.printStackTrace();
                     }
+                }
+                try{
+                    config.put("AES_KEY",crypto_key);
+                }catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 initialProps.putString("配置",config.toString());
                 return initialProps;

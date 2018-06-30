@@ -20,6 +20,8 @@
 # (unless you are using a system that supports de-obfuscate the stack traces).
 -dontobfuscate
 
+-keep class com.examples.BuildConfig { *; }  #保持BuildConfig类不被混淆，要通过反射获取配置
+
 # React Native
 
 # Keep our interfaces so they can be used by other ProGuard rules.

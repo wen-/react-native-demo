@@ -1,5 +1,5 @@
 const crypto_config = {
-	"AES_KEY":"FO1KQXmtxhlA6PKF"
+	"AES_KEY":""
 };
 
 export {crypto_config};
