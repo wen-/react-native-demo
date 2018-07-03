@@ -28,7 +28,6 @@ import Basic from './components/Basic/'
 import Dynamic from './components/Dynamic/'
 import LoadMinimal from './components/LoadMinimal/'
 import Phone from './components/Phone/'
-//import PhotoView from './components/PhotoView/' // not working
 import Swiper from './components/Swiper/'  // working but no title displayed
 import SwiperNumber from './components/SwiperNumber/'
 import SplashPage from "./components/SplashPage"; // working but no title displayed
@@ -50,6 +49,20 @@ const styles = StyleSheet.create({
 	tabBarSelectedItemStyle: {
 		backgroundColor: '#ddd',
 	},
+	navigationBar:{
+		backgroundColor: "#fff",
+		borderBottomWidth: 1,
+		borderBottomColor: '#dadada',
+		elevation: 0,
+		height: 44,
+	},
+	navigationBarTitle:{
+		fontSize: 18,
+		fontWeight: 'normal',
+		color: '#222',
+		textAlign: 'center',
+		alignSelf: 'center',
+	}
 });
 
 const reducerCreate = params => {
@@ -104,7 +117,7 @@ export default class App extends Component{
 					       })}
 					>
 						<Scene key="启动页" component={SplashPage} title="启动" initial direction="fade"/>
-						<Scene key="主界面" title="swiper" hideNavBar direction="fade">
+						<Scene key="主界面" title="swiper" hideNavBar direction="fade" navigationBarStyle={styles.navigationBar} titleStyle={styles.navigationBarTitle}>
 							<Tabs
 								key="标签组" showLabel={true}
 								tabBarPosition="bottom"
@@ -116,20 +129,23 @@ export default class App extends Component{
 								<Stack key="Basic标签" tabBarLabel="Basic" initial icon={TabIcon} icontext="add-user">
 									<Scene key="Basic" component={Basic} title="Basic"/>
 								</Stack>
-								<Stack key="Dynamic标签" tabBarLabel="Dynamic" icon={TabIcon} icontext="address">
-									<Scene key="Dynamic" component={Dynamic} title="Dynamic"/>
-								</Stack>
-								<Stack key="LoadMinimal标签" tabBarLabel="LoadMinimal" icon={TabIcon} icontext="adjust">
-									<Scene key="LoadMinimal" component={LoadMinimal} title="LoadMinimal"/>
-								</Stack>
-								<Stack key="Phone标签" tabBarLabel="Phone" icon={TabIcon} icontext="air">
-									<Scene key="Phone" component={Phone} title="Phone"/>
-								</Stack>
-								<Stack key="Swiper标签" tabBarLabel="Swiper" icon={TabIcon} icontext="aircraft">
-									<Scene key="Swiper" component={Swiper} title="Swiper"/>
-								</Stack>
-								<Stack key="SwiperNumber标签" tabBarLabel="SwiperNumber" icon={TabIcon} icontext="archive">
-									<Scene key="SwiperNumber" component={SwiperNumber} title="SwiperNumber"/>
+								{/*<Stack key="Dynamic标签" tabBarLabel="Dynamic" icon={TabIcon} icontext="address">*/}
+									{/*<Scene key="Dynamic" component={Dynamic} title="Dynamic"/>*/}
+								{/*</Stack>*/}
+								{/*<Stack key="LoadMinimal标签" tabBarLabel="LoadMinimal" icon={TabIcon} icontext="adjust">*/}
+									{/*<Scene key="LoadMinimal" component={LoadMinimal} title="LoadMinimal"/>*/}
+								{/*</Stack>*/}
+								{/*<Stack key="Phone标签" tabBarLabel="Phone" icon={TabIcon} icontext="air">*/}
+									{/*<Scene key="Phone" component={Phone} title="Phone"/>*/}
+								{/*</Stack>*/}
+								{/*<Stack key="Swiper标签" tabBarLabel="Swiper" icon={TabIcon} icontext="aircraft">*/}
+									{/*<Scene key="Swiper" component={Swiper} title="Swiper"/>*/}
+								{/*</Stack>*/}
+								{/*<Stack key="SwiperNumber标签" tabBarLabel="SwiperNumber" icon={TabIcon} icontext="archive">*/}
+									{/*<Scene key="SwiperNumber" component={SwiperNumber} title="SwiperNumber"/>*/}
+								{/*</Stack>*/}
+								<Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
+									<Scene key="我的" component={user} title="我的"/>
 								</Stack>
 							</Tabs>
 

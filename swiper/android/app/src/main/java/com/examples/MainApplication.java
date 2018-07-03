@@ -2,6 +2,7 @@ package com.examples;
 
 import com.baidu.mobstat.StatService;
 import com.facebook.react.ReactApplication;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -40,6 +41,7 @@ public class MainApplication extends UmengPushApplication implements ReactApplic
 			return Arrays.<ReactPackage>asList(
 					new SplashScreenReactPackage(),
 					new MainReactPackage(),
+					new RNSpinkitPackage(),
 					new RNDeviceInfo(),
 					new RNFetchBlobPackage(),
 					new CodePush(RN版本更新密钥, getApplicationContext(), BuildConfig.DEBUG),
