@@ -3,19 +3,28 @@ import {
 	Text,
 	View,
 	Image,
-	Linking,
+	SectionList,
 	TouchableOpacity,
 	ScrollView,
 	Modal,
-	Platform
+	Platform,
+	Linking,
+	Dimensions
 } from 'react-native'
+import {
+	Actions,
+} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
 import {接口配置} from '../request/Domain';
 import {checkupdate} from "../request/CheckUpdate";
 import {c_download_file, c_openfile} from "../Utils/Common";
+import {模态框样式} from "../Styles";
 
 var styles = {
-
+	container:{
+		flex:1,
+		backgroundColor:"#efefef"
+	},
 }
 
 export default class extends Component {
@@ -118,6 +127,54 @@ export default class extends Component {
 		return(
 			<View style={styles.container}>
 				<ScrollView>
+					<View>
+						<Image style={{width:Dimensions.get('window').width,height:150,resizeMode:'cover'}} source={require('../../assets/images/bg.png')} />
+					</View>
+					<TouchableOpacity style={{backgroundColor:"#fff",height:60,width:60,borderRadius:60,justifyContent: 'center',alignItems: 'center',position:"absolute",top:110,left:"50%",marginLeft:-25,borderWidth:1,borderColor:"#efefef",zIndex:100}}>
+						<View style={{backgroundColor:"#cf560a",height:56,width:56,borderRadius:56,justifyContent: 'center',alignItems: 'center'}}>
+							<Icon name={"github"} size={40} color={'#fff'} />
+						</View>
+					</TouchableOpacity>
+					<View style={{height:80,backgroundColor:"#fff",marginBottom:10,justifyContent: 'flex-end'}}>
+						<View style={{alignItems: 'center',marginBottom:5}}>
+							<Text style={{color:"#333",fontSize:12}}>135****1889</Text>
+						</View>
+						<View style={{flexDirection:"row",marginBottom:5}}>
+							<View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+								<Text style={{color:"#333"}}>0元</Text>
+								<Text style={{color:"#ccc",fontSize:10}}>信用额度</Text>
+							</View>
+							<View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+								<Text style={{color:"#333"}}>0元</Text>
+								<Text style={{color:"#ccc",fontSize:10}}>账户余额</Text>
+							</View>
+							<View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+								<Text style={{color:"red"}}>0元</Text>
+								<Text style={{color:"#ccc",fontSize:10}}>待还款</Text>
+							</View>
+						</View>
+					</View>
+					<SectionList
+						renderItem={({item, index, section}) => (
+							<TouchableOpacity key={index} onPress={()=>{
+								if(item.jump){
+									Actions[item.jump]();
+								}}} style={{flex:1,backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd",paddingBottom:8,paddingTop:8,paddingLeft:10,paddingRight:10,flexDirection: 'row',alignItems: 'center',}}>
+								<View style={{marginRight:10,backgroundColor:item.color,borderRadius:30,width:30,height:30,alignItems:"center",justifyContent:"center"}}><Icon name={item.icon} size={20} color={"#fff"}/></View>
+								<Text style={{flex:1,color:"#333",fontSize:12}}>{item.txt}</Text>
+								<Icon name={"chevron-small-right"} size={20} color={"#ccc"}/>
+							</TouchableOpacity>
+						)}
+						renderSectionHeader={({section: {title}}) => (
+							<View style={{height:5}}></View>
+						)}
+						sections={[
+							{title: 'Title1', data: [{txt:'审核进度查询',color:'#ff3726',icon:'new-message'}, {txt:'我的账单',color:'#48a0ff',icon:'open-book'}, {txt:'我的优惠券',color:'#ff3726',icon:'ticket'}, {txt:'我的银行卡',color:'#7232ff',icon:'credit-card'}]},
+							{title: 'Title2', data: [{txt:'检查更新',color:'#13d0ff',icon:'download'}, {txt:'加载效果',color:'#a0ad3d',icon:'circular-graph',jump:"加载页"}, {txt:'联系我们',color:'#a0ad3d',icon:'landline'}, {txt:'更多设置',color:'#ba1d41',icon:'cog'}]},
+						]}
+						keyExtractor={(item, index) => item + index}
+						style={{marginBottom:40}}
+					/>
 
 				</ScrollView>
 

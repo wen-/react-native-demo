@@ -24,6 +24,8 @@ import {
 import Icon from 'react-native-vector-icons/Entypo';
 import storage from './components/Utils/StorageUtil';
 
+import User from './components/User/'
+import Example from './components/Spinner/'
 import Basic from './components/Basic/'
 import Dynamic from './components/Dynamic/'
 import LoadMinimal from './components/LoadMinimal/'
@@ -34,7 +36,7 @@ import SplashPage from "./components/SplashPage"; // working but no title displa
 
 const TabIcon = ({ focused, title, icontext }) => {
 	return (
-		<Icon name={icontext} size={30} color={focused ? '#07f' :'#b57830'} />
+		<Icon name={icontext} size={20} color={focused ? '#07f' :'#b57830'} />
 	);
 }
 
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
 		color: '#222',
 		textAlign: 'center',
 		alignSelf: 'center',
+		flex:1
 	}
 });
 
@@ -145,11 +148,14 @@ export default class App extends Component{
 									{/*<Scene key="SwiperNumber" component={SwiperNumber} title="SwiperNumber"/>*/}
 								{/*</Stack>*/}
 								<Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
-									<Scene key="我的" component={user} title="我的"/>
+									<Scene key="我的" component={User} title="我的"  hideNavBar/>
 								</Stack>
 							</Tabs>
 
 						</Scene>
+
+						<Scene key="加载页" component={Example} title="加载效果" hideNavBar={false} navigationBarStyle={styles.navigationBar} titleStyle={styles.navigationBarTitle} />
+
 					</Scene>
 				</Overlay>
 			</Router>
