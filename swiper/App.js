@@ -27,6 +27,7 @@ import storage from './components/Utils/StorageUtil';
 import User from './components/User/'
 import Example from './components/Spinner/'
 import Basic from './components/Basic/'
+import CustomNavBar from './components/CustomNav/'
 import Dynamic from './components/Dynamic/'
 import LoadMinimal from './components/LoadMinimal/'
 import Phone from './components/Phone/'
@@ -129,32 +130,18 @@ export default class App extends Component{
 								activeBackgroundColor="white"
 								inactiveBackgroundColor="white"
 							>
-								<Stack key="Basic标签" tabBarLabel="Basic" initial icon={TabIcon} icontext="add-user">
-									<Scene key="Basic" component={Basic} title="Basic"/>
+								<Stack key="首页标签" tabBarLabel="Basic" initial icon={TabIcon} icontext="dropbox">
+									<Scene key="首页" component={Basic} title="首页"  navBar={CustomNavBar}/>
 								</Stack>
-								{/*<Stack key="Dynamic标签" tabBarLabel="Dynamic" icon={TabIcon} icontext="address">*/}
-									{/*<Scene key="Dynamic" component={Dynamic} title="Dynamic"/>*/}
-								{/*</Stack>*/}
-								{/*<Stack key="LoadMinimal标签" tabBarLabel="LoadMinimal" icon={TabIcon} icontext="adjust">*/}
-									{/*<Scene key="LoadMinimal" component={LoadMinimal} title="LoadMinimal"/>*/}
-								{/*</Stack>*/}
-								{/*<Stack key="Phone标签" tabBarLabel="Phone" icon={TabIcon} icontext="air">*/}
-									{/*<Scene key="Phone" component={Phone} title="Phone"/>*/}
-								{/*</Stack>*/}
-								{/*<Stack key="Swiper标签" tabBarLabel="Swiper" icon={TabIcon} icontext="aircraft">*/}
-									{/*<Scene key="Swiper" component={Swiper} title="Swiper"/>*/}
-								{/*</Stack>*/}
-								{/*<Stack key="SwiperNumber标签" tabBarLabel="SwiperNumber" icon={TabIcon} icontext="archive">*/}
-									{/*<Scene key="SwiperNumber" component={SwiperNumber} title="SwiperNumber"/>*/}
-								{/*</Stack>*/}
+
 								<Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
-									<Scene key="我的" component={User} title="我的"  hideNavBar/>
+									<Scene key="我的" component={User} title="我的" navBar={CustomNavBar}/>
 								</Stack>
 							</Tabs>
 
 						</Scene>
 
-						<Scene key="加载页" component={Example} title="加载效果" hideNavBar={false} navigationBarStyle={styles.navigationBar} titleStyle={styles.navigationBarTitle} />
+						<Scene key="加载页" component={Example} title="加载效果" hideNavBar={false} navBar={CustomNavBar} />
 
 					</Scene>
 				</Overlay>

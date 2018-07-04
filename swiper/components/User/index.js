@@ -9,7 +9,8 @@ import {
 	Modal,
 	Platform,
 	Linking,
-	Dimensions
+	Dimensions,
+	DeviceEventEmitter,
 } from 'react-native'
 import {
 	Actions,
@@ -39,6 +40,11 @@ export default class extends Component {
 			更新内容:{}
 		}
 	}
+
+	componentWillMount(){
+
+	}
+
 	componentDidMount(){
 
 	}
@@ -122,11 +128,19 @@ export default class extends Component {
 		_模态框配置.显示 = false;
 		this.setState({模态框配置:_模态框配置});
 	}
+	滚动事件(e){
+		console.log(e.nativeEvent);
+		if(e.nativeEvent.contentOffset.y <= 110){
+			let _透明度 = e.nativeEvent.contentOffset.y/100;
+			console.log("透明度：",_透明度);
+			DeviceEventEmitter.emit('改变导航透明度',{透明度:_透明度})
+		}
+	}
 
 	render(){
 		return(
 			<View style={styles.container}>
-				<ScrollView>
+				<ScrollView scrollEventThrottle={16} onScroll={this.滚动事件.bind(this)}>
 					<View>
 						<Image style={{width:Dimensions.get('window').width,height:150,resizeMode:'cover'}} source={require('../../assets/images/bg.png')} />
 					</View>
