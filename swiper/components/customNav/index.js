@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 const styles = StyleSheet.create({
 	container: {
-		height: (Platform.OS === 'ios') ? 44 : 44,
+		height: (Platform.OS === 'ios') ? 64 : 44,
 		flexDirection: 'row',
 		justifyContent: 'center',
 	},
