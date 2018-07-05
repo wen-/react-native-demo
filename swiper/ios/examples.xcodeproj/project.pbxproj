@@ -43,6 +43,7 @@
 		A25021F920E9FF410020A45C /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A25021C520E9FF2F0020A45C /* libCodePush.a */; };
 		A250220320E9FF6F0020A45C /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A250220020E9FF680020A45C /* libRNDeviceInfo.a */; };
 		A250220A20E9FF8F0020A45C /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A250220920E9FF870020A45C /* libRNFetchBlob.a */; };
+		A2890A1520EDB9E5006ED042 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2890A1220EDB9CE006ED042 /* libRNSpinkit.a */; };
 		B153C80981D748E3BF8A3623 /* libRCTUmengPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5A02EA65664BD68F81E88D /* libRCTUmengPush.a */; };
 		F80B18127F3040FCAC2F9FCA /* libRCTBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E20B3A0A4742F292BF819E /* libRCTBaiduMobStat.a */; };
 /* End PBXBuildFile section */
@@ -328,6 +329,20 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
+		A2890A1120EDB9CE006ED042 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A28909E220EDB9CE006ED042 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
+			remoteInfo = RNSpinkit;
+		};
+		A2890A1320EDB9CE006ED042 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A28909E220EDB9CE006ED042 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 641194871EC9FD4A00D4FC03;
+			remoteInfo = "RNSpinkit-tvOS";
+		};
 		CC09C7371F38C55600A631F7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -397,6 +412,7 @@
 		A25021BF20E9FF2F0020A45C /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		A25021FA20E9FF680020A45C /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		A250220420E9FF870020A45C /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
+		A28909E220EDB9CE006ED042 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		A348F89A4FB6401682526630 /* RCTUmengPush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTUmengPush.xcodeproj; path = "../node_modules/react-native-umeng-push/ios/RCTUmengPush.xcodeproj"; sourceTree = "<group>"; };
 		A5E20B3A0A4742F292BF819E /* libRCTBaiduMobStat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBaiduMobStat.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -417,6 +433,7 @@
 				04969BDF20D764E0008D887D /* libicucore.tbd in Frameworks */,
 				04969BDD20D764C4008D887D /* libz.tbd in Frameworks */,
 				04969B7D20D75C78008D887D /* libc++.tbd in Frameworks */,
+				A2890A1520EDB9E5006ED042 /* libRNSpinkit.a in Frameworks */,
 				A250220A20E9FF8F0020A45C /* libRNFetchBlob.a in Frameworks */,
 				A250220320E9FF6F0020A45C /* libRNDeviceInfo.a in Frameworks */,
 				A25021F920E9FF410020A45C /* libCodePush.a in Frameworks */,
@@ -636,6 +653,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A28909E220EDB9CE006ED042 /* RNSpinkit.xcodeproj */,
 				A250220420E9FF870020A45C /* RNFetchBlob.xcodeproj */,
 				A25021FA20E9FF680020A45C /* RNDeviceInfo.xcodeproj */,
 				A25021BF20E9FF2F0020A45C /* CodePush.xcodeproj */,
@@ -713,6 +731,15 @@
 			isa = PBXGroup;
 			children = (
 				A250220920E9FF870020A45C /* libRNFetchBlob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A28909E320EDB9CE006ED042 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2890A1220EDB9CE006ED042 /* libRNSpinkit.a */,
+				A2890A1420EDB9CE006ED042 /* libRNSpinkit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -906,6 +933,10 @@
 				{
 					ProductGroup = A250220520E9FF870020A45C /* Products */;
 					ProjectRef = A250220420E9FF870020A45C /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = A28909E320EDB9CE006ED042 /* Products */;
+					ProjectRef = A28909E220EDB9CE006ED042 /* RNSpinkit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1183,6 +1214,20 @@
 			fileType = archive.ar;
 			path = libRNFetchBlob.a;
 			remoteRef = A250220820E9FF870020A45C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A2890A1220EDB9CE006ED042 /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = A2890A1120EDB9CE006ED042 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A2890A1420EDB9CE006ED042 /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = A2890A1320EDB9CE006ED042 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC09C7381F38C55600A631F7 /* libthird-party.a */ = {

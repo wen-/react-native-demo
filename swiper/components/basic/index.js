@@ -11,14 +11,13 @@ import {
 } from 'react-native'
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Entypo';
-import {接口配置} from '../request/Domain';
-import {getbanner} from "../request/GetBanner";
-import {checkupdate} from "../request/CheckUpdate";
-import {c_download_file, c_openfile} from "../Utils/Common";
-import {模态框样式} from "../Styles";
+import {接口配置} from '../request/domain';
+import {getBanner} from "../request/getBanner";
+import {checkUpdate} from "../request/checkUpdate";
+import {c_download_file, c_openfile} from "../utils/common";
+import {模态框样式} from "../styles";
 
-const loading = require('../LoadMinimal/img/loading.gif');
-
+import Spinkit from 'react-native-spinkit';
 
 var styles = {
 	container: {
@@ -75,11 +74,11 @@ var styles = {
 const Slide = props => {
 	return (
 		<View style={styles.slide}>
-			<TouchableOpacity style={styles.slide} onPress={()=>props.jump(props.link)}>
+			<TouchableOpacity activeOpacity={1}  style={styles.slide} onPress={()=>props.jump(props.link)}>
 				<View style={styles.slide}>
 					<Image onLoad={props.loadHandle.bind(null, props.i)} style={styles.slide} source={{uri: props.uri}} />
 					{!props.loaded && <View style={styles.loadingView}>
-						<Image style={styles.loadingImage} source={loading} />
+						<Spinkit isVisible={true} size={50} type={"Circle"} color={"#5a9aff"}/>
 					</View>}
 				</View>
 			</TouchableOpacity>
@@ -110,7 +109,7 @@ export default class extends Component {
 		// 	})
 		// 	//为了解决安卓轮播图无法显示的bug
 		// },100);
-		getbanner(function (res) {
+		getBanner(function (res) {
 			if(res){
 				try{
 					banner_data = JSON.parse(res.data);
@@ -172,7 +171,7 @@ export default class extends Component {
 		this.state.模态框配置 = _模态框配置;
 		this.显示模态框(2000);
 
-		checkupdate(function (res) {
+		checkUpdate(function (res) {
 			console.log("检查更新返回：",res);
 			if(res){
 				let _模态框配置 = this.state.模态框配置;
