@@ -22,22 +22,18 @@ import {
 } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Entypo';
-import storage from './components/Utils/StorageUtil';
+import storage from './components/utils/storageUtil';
 
-import User from './components/User/'
-import Example from './components/Spinner/'
-import Basic from './components/Basic/'
-import CustomNavBar from './components/CustomNav/'
-import Dynamic from './components/Dynamic/'
-import LoadMinimal from './components/LoadMinimal/'
-import Phone from './components/Phone/'
-import Swiper from './components/Swiper/'  // working but no title displayed
-import SwiperNumber from './components/SwiperNumber/'
-import SplashPage from "./components/SplashPage"; // working but no title displayed
+import User from './components/user/'
+import Edit from './components/user/edit'
+import Example from './components/spinner/'
+import Basic from './components/basic/'
+import CustomNavBar from './components/customNav/'
+import SplashPage from "./components/splashPage"; // working but no title displayed
 
 const TabIcon = ({ focused, title, icontext }) => {
 	return (
-		<Icon name={icontext} size={20} color={focused ? '#07f' :'#b57830'} />
+		<Icon name={icontext} size={20} color={focused ? '#07f' :'#cccccc'} />
 	);
 }
 
@@ -130,8 +126,8 @@ export default class App extends Component{
 								activeBackgroundColor="white"
 								inactiveBackgroundColor="white"
 							>
-								<Stack key="首页标签" tabBarLabel="Basic" initial icon={TabIcon} icontext="dropbox">
-									<Scene key="首页" component={Basic} title="首页"  navBar={CustomNavBar}/>
+								<Stack key="首页标签" tabBarLabel="首页" initial icon={TabIcon} icontext="dropbox">
+									<Scene key="首页" component={Basic} title="首页" />
 								</Stack>
 
 								<Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
@@ -142,6 +138,7 @@ export default class App extends Component{
 						</Scene>
 
 						<Scene key="加载页" component={Example} title="加载效果" hideNavBar={false} navBar={CustomNavBar} />
+						<Scene key="编辑个人资料" component={Edit} title="键盘遮挡测试" hideNavBar={false} navBar={CustomNavBar} />
 
 					</Scene>
 				</Overlay>

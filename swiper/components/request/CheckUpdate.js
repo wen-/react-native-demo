@@ -2,10 +2,10 @@ import {
 	Platform,
 } from 'react-native';
 import * as DeviceInfo from 'react-native-device-info';
-import {接口配置} from "./Domain";
-import {c_fetch} from "../Utils/Common";
+import {接口配置} from "./domain";
+import {c_fetch} from "../utils/common";
 
-const checkupdate = function (fn) {
+const checkUpdate = function (fn) {
 	let url = global.配置.域名 + 接口配置.update;
 	c_fetch(url,{
 		method:"GET",
@@ -43,4 +43,4 @@ const checkupdate = function (fn) {
 	});
 }
 
-export {checkupdate}
+export {checkUpdate}

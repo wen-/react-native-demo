@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 	container: {
 		height: (Platform.OS === 'ios') ? 44 : 44,
 		flexDirection: 'row',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	navBarLeftItem: {
 		position:"absolute",
@@ -70,7 +70,7 @@ export default class CustomNavBar extends React.Component {
 				<TouchableOpacity
 					onPress={Actions.pop}
 					style={[styles.navBarLeftItem]}>
-					<Icon name={"reply"} size={30} color={'#000'} />
+					<Icon name={"reply"} size={20} color={'#000'} />
 				</TouchableOpacity>
 			)
 		}
@@ -85,13 +85,13 @@ export default class CustomNavBar extends React.Component {
 	}
 
 	_renderRight() {
-		if (Actions.currentScene === '搜索') {
+		if (Actions.currentScene === '我的') {
 			return (
 				<View style={[styles.navBarRightItem, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
 					<TouchableOpacity
-						onPress={() => {}}
+						onPress={() => {Actions.编辑个人资料()}}
 						style={{ paddingRight: 10,justifyContent: 'center' }}>
-						<Icon name={"magnifying-glass"} size={30} color={'#000'} />
+						<Icon name={"new-message"} size={20} color={'#000'} />
 					</TouchableOpacity>
 				</View>
 			)
@@ -102,11 +102,23 @@ export default class CustomNavBar extends React.Component {
 
 	render() {
 		let dinamicStyle = {};
-		let _rgba = 'rgba(255,255,255,'+this.state.透明度+')';
 		if (Actions.currentScene === '我的') {
+			let _rgba = 'rgba(255,255,255,'+this.state.透明度+')';
 			dinamicStyle = {position:"absolute", width:"100%",top:0, backgroundColor: _rgba}
+			if(this.state.透明度 > 0.5){
+				dinamicStyle.borderBottomWidth = 1;
+				dinamicStyle.borderBottomColor = "#ddd";
+				dinamicStyle.shadowOffset = {width:0,height:1};
+				dinamicStyle.shadowColor = "#ddd";
+				dinamicStyle.shadowOpacity = .5;
+			}
 		} else {
-			dinamicStyle = { backgroundColor: '#fff'}
+			dinamicStyle.backgroundColor = '#fff';
+			dinamicStyle.borderBottomWidth = 1;
+			dinamicStyle.borderBottomColor = "#ddd";
+			dinamicStyle.shadowOffset = {width:0,height:1};
+			dinamicStyle.shadowColor = "#ddd";
+			dinamicStyle.shadowOpacity = .5;
 		}
 
 		return (

@@ -1,7 +1,7 @@
-import {接口配置} from "./Domain";
-import {c_fetch} from "../Utils/Common";
+import {接口配置} from "./domain";
+import {c_fetch} from "../utils/common";
 
-const getbanner = function (fn) {
+const getBanner = function (fn) {
 	let url = global.配置.域名 + 接口配置.banner;
 	c_fetch(url,{
 		method:"GET",
@@ -16,4 +16,4 @@ const getbanner = function (fn) {
 	});
 }
 
-export {getbanner};
+export {getBanner};

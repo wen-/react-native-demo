@@ -16,10 +16,10 @@ import {
 	Actions,
 } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
-import {接口配置} from '../request/Domain';
-import {checkupdate} from "../request/CheckUpdate";
-import {c_download_file, c_openfile} from "../Utils/Common";
-import {模态框样式} from "../Styles";
+import {接口配置} from '../request/domain';
+import {checkUpdate} from "../request/checkUpdate";
+import {c_download_file, c_openfile} from "../utils/common";
+import {模态框样式} from "../styles";
 
 var styles = {
 	container:{
@@ -69,7 +69,7 @@ export default class extends Component {
 		this.state.模态框配置 = _模态框配置;
 		this.显示模态框(2000);
 
-		checkupdate(function (res) {
+		checkUpdate(function (res) {
 			console.log("检查更新返回：",res);
 			if(res){
 				let _模态框配置 = this.state.模态框配置;
