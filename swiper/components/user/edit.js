@@ -17,6 +17,7 @@ import {
 	Actions,
 } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {字体样式,布局样式} from "../styles";
 
 var styles = {
@@ -35,9 +36,13 @@ export default class extends Component {
 		}
 	}
 
-	componentWillMount(){
+    componentWillMount() {
 
-	}
+    };
+
+    componentWillUnmount() {
+
+    }
 
 	componentDidMount(){
 
@@ -73,45 +78,46 @@ export default class extends Component {
 		//安卓下测试不存在被键盘遮挡，ios待测试
 		return(
 			<View style={styles.container}>
-				<ScrollView scrollEventThrottle={16} onScroll={this.滚动事件.bind(this)} keyboardShouldPersistTaps={"handled"}>
+                <KeyboardAwareScrollView>
+					<ScrollView scrollEventThrottle={16} onScroll={this.滚动事件.bind(this)} keyboardShouldPersistTaps={"handled"}>
 
-					<Text>以下SectionList节点</Text>
-					<SectionList
-						renderItem={({item, index, section}) => (
-							<View key={index} style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
-								<Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>{item.txt}：</Text>
-								<TextInput style={[布局样式.f1,字体样式.黑色]} ref={item.txt+"输入框"} underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,item.txt)}} placeholder={"请输入"+item.txt} value={this.state[item.txt]}/>
-								<TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
-									<Text style={字体样式.黑色}>按钮测试</Text>
-								</TouchableOpacity>
-							</View>
-						)}
-						sections={[
-							{title: '个人资料', data: [{txt:'手机号'},{txt:'邮箱'},{txt:'地址'}, {txt:'身份证'}, {txt:'信用卡'}, {txt:'芝麻分'},{txt:'邮箱'},{txt:'地址'}, {txt:'身份证'}, {txt:'信用卡'}, {txt:'芝麻分'}]},
-						]}
-						keyExtractor={(item, index) => item + index}
-						style={{}}
-					/>
+						<Text>以下SectionList节点</Text>
+						<SectionList
+							renderItem={({item, index, section}) => (
+								<View key={index} style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
+									<Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>{item.txt}：</Text>
+									<TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref={item.txt+"输入框"} underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,item.txt)}} placeholder={"请输入"+item.txt} value={this.state[item.txt]}/>
+									<TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
+										<Text style={字体样式.黑色}>按钮测试</Text>
+									</TouchableOpacity>
+								</View>
+							)}
+							sections={[
+								{title: '个人资料', data: [{txt:'手机号'},{txt:'邮箱'},{txt:'地址'}, {txt:'身份证'}, {txt:'信用卡'}, {txt:'芝麻分'},{txt:'邮箱'},{txt:'地址'}, {txt:'身份证'}, {txt:'信用卡'}, {txt:'芝麻分'}]},
+							]}
+							keyExtractor={(item, index) => item + index}
+							style={{}}
+						/>
 
-					<Text>以下常规节点</Text>
-					<View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
-						<Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>姓名：</Text>
-						<TextInput style={[布局样式.f1,字体样式.黑色]} ref="姓名输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"姓名")}} placeholder={"请输入姓名"} value={this.state.姓名}/>
-						<TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
-							<Text>按钮测试</Text>
-						</TouchableOpacity>
-					</View>
-					<View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
-						<Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>性别：</Text>
-						<TextInput style={[布局样式.f1,字体样式.黑色]} ref="性别输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"性别")}} placeholder={"请输入性别"} value={this.state.性别}/>
-					</View>
-					<View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
-						<Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>年龄：</Text>
-						<TextInput style={[布局样式.f1,字体样式.黑色]} ref="年龄输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"年龄")}} placeholder={"请输入年龄"} value={this.state.年龄}/>
-					</View>
+                        <Text>以下常规节点</Text>
+                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
+                            <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>姓名：</Text>
+                            <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="姓名输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"姓名")}} placeholder={"请输入姓名"} value={this.state.姓名}/>
+                            <TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
+                                <Text>按钮测试</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
+                            <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>性别：</Text>
+                            <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="性别输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"性别")}} placeholder={"请输入性别"} value={this.state.性别}/>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
+                            <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>年龄：</Text>
+                            <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="年龄输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"年龄")}} placeholder={"请输入年龄"} value={this.state.年龄}/>
+                        </View>
 
-				</ScrollView>
-
+					</ScrollView>
+				</KeyboardAwareScrollView>
 			</View>
 		)
 	}

@@ -2,20 +2,23 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, DeviceEventE
 import React from 'react'
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Entypo';
-
+const h = (Platform.OS === 'ios') ? 64 : 54;
 const styles = StyleSheet.create({
 	container: {
-		height: (Platform.OS === 'ios') ? 64 : 44,
+		height: h,
 		flexDirection: 'row',
 		justifyContent: 'center',
+		paddingTop: 20
 	},
 	navBarLeftItem: {
 		position:"absolute",
+		zIndex:10,
 		left:0,
 		top:0,
 		width:50,
-		height:44,
+		height:h,
 		paddingLeft:10,
+        paddingTop: 20,
 		justifyContent: 'center'
 	},
 	navBarTitleItem:{
@@ -27,10 +30,12 @@ const styles = StyleSheet.create({
 	},
 	navBarRightItem:{
 		position:"absolute",
+        zIndex:10,
 		right:0,
 		top:0,
 		width:50,
-		height:44,
+		height:h,
+        paddingTop: 20,
 		justifyContent:'center'
 	},
 	navTitle:{
@@ -68,7 +73,9 @@ export default class CustomNavBar extends React.Component {
 		} else {
 			return (
 				<TouchableOpacity
-					onPress={Actions.pop}
+					onPress={()=>{
+						Actions.pop()
+					}}
 					style={[styles.navBarLeftItem]}>
 					<Icon name={"reply"} size={20} color={'#000'} />
 				</TouchableOpacity>
