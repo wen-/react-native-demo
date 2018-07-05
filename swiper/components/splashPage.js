@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-	View,
-	AppState,
-	Linking,
-	NativeModules,
-	NetInfo,
-	Image,Text,
-	Platform, StyleSheet, Dimensions,
+    View,
+    AppState,
+    Linking,
+    NativeModules,
+    NetInfo,
+    Image,Text,
+    Platform, StyleSheet, Dimensions,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
@@ -95,28 +95,28 @@ UmengPush.didOpenMessage(message => {
 
 class SplashPage extends React.Component {
 
-	constructor(props) {
-		super(props)
-		this.state={
-			index:0
-		}
-	}
+    constructor(props) {
+        super(props)
+        this.state={
+            index:0
+        }
+    }
 
     componentWillMount(){
-	    storage.load({
-		    key: 'showSplash',
-	    }).then(ret => {
-		    if(!ret){
-			    SplashScreen.hide();
-			    Actions.主界面();
-		    }
-	    }).catch(err => {
-		    SplashScreen.hide();
-		    storage.save({
-			    key: 'showSplash',
-			    data: false
-		    });
-	    });
+        storage.load({
+            key: 'showSplash',
+        }).then(ret => {
+            if(!ret){
+                SplashScreen.hide();
+                Actions.主界面();
+            }
+        }).catch(err => {
+            SplashScreen.hide();
+            storage.save({
+                key: 'showSplash',
+                data: false
+            });
+        });
 
     }
 
@@ -135,48 +135,48 @@ class SplashPage extends React.Component {
 
     render() {
         return (
-		        <Swiper style={splash.container}
-		                dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-		                activeDot={<View style={{backgroundColor: '#fff', width: 30, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-		                paginationStyle={{
-			                bottom: 50
-		                }}
-		                loop={false}
-		                onMomentumScrollEnd = {(e,s,c)=>{
-			                this.state.index = s.index;
-		                }}
-		                onTouchStartCapture = {(e,s,c)=>{
-			                if(this.state.index == 2){
-				                Actions.主界面();
-			                }
-		                }}
-		                onTouchStart = {(e,s,c)=>{
-			                //code
-		                }}
-		                onTouchEnd = {(e,s,c)=>{
-			                //code
-		                }}
-		                onResponderRelease = {(e,s,c)=>{
-			                //code
-		                }}>
-			        <View style={splash.slide}>
-				        <Image
-					        style={splash.image}
-					        source={require('../assets/images/banner1.jpg')}
-				        />
-			        </View>
-			        <View style={splash.slide}>
-				        <Image
-					        style={splash.image}
-					        source={require('../assets/images/banner2.jpg')}
-				        />
-			        </View>
-			        <View style={splash.slide}>
-				        <Image
-					        style={splash.image}
-					        source={require('../assets/images/banner3.jpg')} />
-			        </View>
-		        </Swiper>
+            <Swiper style={splash.container}
+                    dot={<View style={{backgroundColor: 'rgba(255,255,255,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+                    activeDot={<View style={{backgroundColor: '#fff', width: 30, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+                    paginationStyle={{
+                        bottom: 50
+                    }}
+                    loop={false}
+                    onMomentumScrollEnd = {(e,s,c)=>{
+                        this.state.index = s.index;
+                    }}
+                    onTouchStartCapture = {(e,s,c)=>{
+                        if(this.state.index == 2){
+                            Actions.主界面();
+                        }
+                    }}
+                    onTouchStart = {(e,s,c)=>{
+                        //code
+                    }}
+                    onTouchEnd = {(e,s,c)=>{
+                        //code
+                    }}
+                    onResponderRelease = {(e,s,c)=>{
+                        //code
+                    }}>
+                <View style={splash.slide}>
+                    <Image
+                        style={splash.image}
+                        source={require('../assets/images/banner1.jpg')}
+                    />
+                </View>
+                <View style={splash.slide}>
+                    <Image
+                        style={splash.image}
+                        source={require('../assets/images/banner2.jpg')}
+                    />
+                </View>
+                <View style={splash.slide}>
+                    <Image
+                        style={splash.image}
+                        source={require('../assets/images/banner3.jpg')} />
+                </View>
+            </Swiper>
         );
     }
 
@@ -189,14 +189,14 @@ const splash = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#eee',
     },
-	slide: {
-		flex: 1,
-		backgroundColor: 'transparent'
-	},
-	image: {
-		width,
-		height,
-	}
+    slide: {
+        flex: 1,
+        backgroundColor: 'transparent'
+    },
+    image: {
+        width,
+        height,
+    }
 });
 
 export default SplashPage;
