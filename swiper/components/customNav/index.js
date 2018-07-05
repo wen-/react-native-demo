@@ -2,13 +2,14 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, DeviceEventE
 import React from 'react'
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Entypo';
-const h = (Platform.OS === 'ios') ? 64 : 54;
+const h = (Platform.OS === 'ios') ? 64 : 44;
+const pt = (Platform.OS === 'ios') ? 20 : 0;
 const styles = StyleSheet.create({
     container: {
         height: h,
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingTop: 20
+        paddingTop: pt
     },
     navBarLeftItem: {
         position:"absolute",
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
         width:50,
         height:h,
         paddingLeft:10,
-        paddingTop: 20,
+        paddingTop: pt,
         justifyContent: 'center'
     },
     navBarTitleItem:{
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
         top:0,
         width:50,
         height:h,
-        paddingTop: 20,
+        paddingTop: pt,
         justifyContent:'center'
     },
     navTitle:{
