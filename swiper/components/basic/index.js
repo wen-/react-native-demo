@@ -88,7 +88,7 @@ const Slide = props => {
 
 export default class extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state={
             showSlider:false,
             imgList:[],
@@ -98,8 +98,12 @@ export default class extends Component {
                 文本:"test",
                 按钮配置:[{"文字":"取消","事件":"隐藏模态框"},{"文字":"确定","事件":"隐藏模态框"}],
             },
-            更新内容:{}
-        }
+            更新内容:{},
+            实现功能:[
+                ["检测网络状态","剪贴板"],
+                ["地理位置","分享"]
+            ]
+        };
         this.loadHandle = this.loadHandle.bind(this)
     }
     componentDidMount(){
@@ -122,6 +126,8 @@ export default class extends Component {
                 }
             }
         }.bind(this));
+
+        this.check();
 
     }
     jump = (link)=>{
@@ -237,20 +243,9 @@ export default class extends Component {
                     <View style={{height:200}}>
                         {this.showSwiper()}
                     </View>
-                    <TouchableOpacity style={{height:40,borderWidth:2,borderColor:"orange",justifyContent: 'center',alignItems:"center"}} onPress={()=>this.check()}>
-                        <Text style={{color:"#333"}}>检查更新</Text>
-                    </TouchableOpacity>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
-                    <Text style={{fontSize:30,height:100,borderWidth:2,borderColor:"green",backgroundColor:"yellow"}}>123</Text>
+                    <View>
+
+                    </View>
                 </ScrollView>
 
                 <View>

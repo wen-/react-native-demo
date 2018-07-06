@@ -173,7 +173,10 @@ export default class extends Component {
                             <TouchableOpacity key={index} onPress={()=>{
                                 if(item.jump){
                                     Actions[item.jump]();
-                                }}} style={{flex:1,backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd",paddingBottom:8,paddingTop:8,paddingLeft:10,paddingRight:10,flexDirection: 'row',alignItems: 'center',}}>
+                                }else if(item.checkUpdate){
+                                    this.check();
+                                }
+                            }} style={{flex:1,backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd",paddingBottom:8,paddingTop:8,paddingLeft:10,paddingRight:10,flexDirection: 'row',alignItems: 'center',}}>
                                 <View style={{marginRight:10,backgroundColor:item.color,borderRadius:30,width:30,height:30,alignItems:"center",justifyContent:"center"}}><Icon name={item.icon} size={20} color={"#fff"}/></View>
                                 <Text style={{flex:1,color:"#333",fontSize:12}}>{item.txt}</Text>
                                 <Icon name={"chevron-small-right"} size={20} color={"#ccc"}/>
@@ -184,7 +187,7 @@ export default class extends Component {
                         )}
                         sections={[
                             {title: 'Title1', data: [{txt:'审核进度查询',color:'#ff3726',icon:'new-message'}, {txt:'我的账单',color:'#48a0ff',icon:'open-book'}, {txt:'我的优惠券',color:'#ff3726',icon:'ticket'}, {txt:'我的银行卡',color:'#7232ff',icon:'credit-card'}]},
-                            {title: 'Title2', data: [{txt:'检查更新',color:'#13d0ff',icon:'download'}, {txt:'加载效果',color:'#a0ad3d',icon:'circular-graph',jump:"加载页"}, {txt:'联系我们',color:'#a0ad3d',icon:'landline'}, {txt:'更多设置',color:'#ba1d41',icon:'cog'}]},
+                            {title: 'Title2', data: [{txt:'检查更新',color:'#13d0ff',icon:'download',checkUpdate:'true'}, {txt:'加载效果',color:'#a0ad3d',icon:'circular-graph',jump:"加载页"}, {txt:'联系我们',color:'#a0ad3d',icon:'landline'}, {txt:'更多设置',color:'#ba1d41',icon:'cog'}]},
                         ]}
                         keyExtractor={(item, index) => item + index}
                         style={{marginBottom:40}}
