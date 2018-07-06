@@ -71,6 +71,14 @@ export default class extends Component {
         this.setState(data);
     };
 
+    nextInput(输入框){
+        if(输入框 === "最后一项"){
+            //this.保存();
+        }else{
+            this.refs[输入框].focus();
+        }
+    }
+
     内容节点(){
         return(
             <ScrollView scrollEventThrottle={16} onScroll={this.滚动事件.bind(this)} keyboardShouldPersistTaps={"handled"}>
@@ -81,7 +89,7 @@ export default class extends Component {
                                   <View key={index} style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
                                       <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>{item.txt}：</Text>
                                       <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref={item.txt+"输入框"} underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,item.txt)}} placeholder={"请输入"+item.txt} value={this.state[item.txt]}/>
-                                      <TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
+                                      <TouchableOpacity onPress={()=>{console.log(123) }} style={{width:80}}>
                                           <Text style={字体样式.黑色}>按钮测试</Text>
                                       </TouchableOpacity>
                                   </View>
@@ -96,14 +104,14 @@ export default class extends Component {
                 <Text>以下常规节点</Text>
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
                     <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>姓名：</Text>
-                    <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="姓名输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"姓名")}} placeholder={"请输入姓名"} value={this.state.姓名}/>
-                    <TouchableOpacity onPress={()=>{console.log(123) }} style={{width:50}}>
+                    <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="姓名输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"姓名")}} placeholder={"请输入姓名"} value={this.state.姓名} onSubmitEditing={() => this.nextInput("性别输入框")}/>
+                    <TouchableOpacity onPress={()=>{console.log(123) }} style={{width:80}}>
                         <Text>按钮测试</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
                     <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>性别：</Text>
-                    <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="性别输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"性别")}} placeholder={"请输入性别"} value={this.state.性别}/>
+                    <TextInput style={[布局样式.f1,字体样式.黑色,{height:40,}]} ref="性别输入框" underlineColorAndroid="transparent" onChangeText={(t)=>{this.输入框文字改变(t,"性别")}} placeholder={"请输入性别"} value={this.state.性别} onSubmitEditing={() => this.nextInput("年龄输入框")}/>
                 </View>
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderBottomWidth:.5,borderBottomColor:"#ddd"}}>
                     <Text style={[字体样式.黑色,{width:80,textAlign:"right"}]}>年龄：</Text>

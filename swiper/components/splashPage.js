@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
 import UmengPush from 'react-native-umeng-push';
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 var SplashScreen = NativeModules.SplashScreen;
 
 //获取DeviceToken
