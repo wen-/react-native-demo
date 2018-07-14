@@ -19,6 +19,8 @@ import {模态框样式} from "../styles";
 
 import Spinkit from 'react-native-spinkit';
 
+import ViewOverflow from 'react-native-view-overflow';
+
 var styles = {
     container: {
         flex: 1
@@ -127,7 +129,7 @@ export default class extends Component {
             }
         }.bind(this));
 
-        this.check();
+        //this.check();
 
     }
     jump = (link)=>{
@@ -243,8 +245,13 @@ export default class extends Component {
                     <View style={{height:200}}>
                         {this.showSwiper()}
                     </View>
-                    <View>
-
+                    <View style={{flex:1}}>
+                        <ViewOverflow style={{borderColor:"green",borderWidth:3,backgroundColor:"yellow"}}>
+                            <View style={{height:30,width:200,flexDirection:"row",alignItems:"center",marginTop:50,backgroundColor:"#fff",borderWidth:1,borderColor:"red"}}>
+                                <Text style={{color:"#000"}}>123455</Text>
+                            </View>
+                            <Icon name={"dropbox"} size={80} color={'#07f'} style={{position:"absolute",marginTop:-50}} />
+                        </ViewOverflow>
                     </View>
                 </ScrollView>
 

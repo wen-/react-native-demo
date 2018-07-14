@@ -23,6 +23,7 @@
 		"react-native-swiper": "1.5.13",
 		"react-native-umeng-push": "git+https://github.com/wen-/react-native-umeng-push.git",
 		"react-native-vector-icons": "^4.6.0",
+		"react-native-view-overflow": "0.0.3",
 		"rn-fetch-blob": "^0.10.11"
 	},
 	"devDependencies": {

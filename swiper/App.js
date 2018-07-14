@@ -29,11 +29,23 @@ import Edit from './components/user/edit'
 import Example from './components/spinner/'
 import Basic from './components/basic/'
 import CustomNavBar from './components/customNav/'
+import CustomTabBarComponent from './components/customTabs/'
 import SplashPage from "./components/splashPage"; // working but no title displayed
 
+
+import ViewOverflow from 'react-native-view-overflow';
+
 const TabIcon = ({ focused, title, icontext }) => {
+    let elem;
+    if(icontext == "paper-plane"){
+        elem = <View style={{position:"absolute",zIndex:100,marginTop:-80,width:80,height:80,alignItems:"center",justifyContent:"center",backgroundColor:"#fff",borderRadius:50,borderColor:"#efefef",borderWidth:1}}>
+            <Icon name={icontext} size={50} color={focused ? '#07f' :'#cccccc'} />
+        </View>
+    }else{
+        elem = <Icon name={icontext} size={20} color={focused ? '#07f' :'#cccccc'} />
+    }
     return (
-        <Icon name={icontext} size={20} color={focused ? '#07f' :'#cccccc'} />
+        elem
     );
 }
 
@@ -123,11 +135,16 @@ export default class App extends Component{
                                 tabBarPosition="bottom"
                                 swipeEnabled={false}
                                 lazy={true}
+                                tabBarComponent={Platform.OS == 'ios'?null:CustomTabBarComponent}
                                 activeBackgroundColor="white"
                                 inactiveBackgroundColor="white"
                             >
                                 <Stack key="首页标签" tabBarLabel="首页" initial icon={TabIcon} icontext="dropbox">
                                     <Scene key="首页" component={Basic} title="首页" />
+                                </Stack>
+
+                                <Stack key="中间标签" tabBarLabel="中间" showLabel={false} icon={TabIcon} icontext="paper-plane">
+                                    <Scene key="中间" component={User} title="中间"/>
                                 </Stack>
 
                                 <Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
