@@ -143,7 +143,7 @@ export default class App extends Component{
                                     <Scene key="首页" component={Basic} title="首页" />
                                 </Stack>
 
-                                <Stack key="中间标签" tabBarLabel="中间" showLabel={false} icon={TabIcon} icontext="paper-plane">
+                                <Stack key="中间标签" tabBarLabel=" " showLabel={false} icon={TabIcon} icontext="paper-plane">
                                     <Scene key="中间" component={User} title="中间"/>
                                 </Stack>
 
