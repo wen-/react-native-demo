@@ -30,6 +30,7 @@ import Example from './components/spinner/'
 import Basic from './components/basic/'
 import CustomNavBar from './components/customNav/'
 import CustomTabBarComponent from './components/customTabs/'
+import testModal from './components/utils/testModal'
 import SplashPage from "./components/splashPage"; // working but no title displayed
 
 
@@ -150,12 +151,14 @@ export default class App extends Component{
                                 <Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
                                     <Scene key="我的" component={User} title="我的" navBar={CustomNavBar}/>
                                 </Stack>
+
                             </Tabs>
 
                         </Scene>
 
                         <Scene key="加载页" component={Example} title="加载效果" hideNavBar={false} navBar={CustomNavBar} />
                         <Scene key="编辑个人资料" component={Edit} title="键盘遮挡测试" hideNavBar={false} navBar={CustomNavBar} />
+                        <Scene key="测试模态框组件" component={testModal} title="测试模态框组件" hideNavBar={false} navBar={CustomNavBar} />
 
                     </Scene>
                 </Overlay>

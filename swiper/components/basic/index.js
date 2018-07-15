@@ -8,7 +8,10 @@ import {
     ScrollView,
     Modal,
     Platform
-} from 'react-native'
+} from 'react-native';
+import {
+    Actions,
+} from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Entypo';
 import {接口配置} from '../request/domain';
@@ -252,6 +255,11 @@ export default class extends Component {
                             </View>
                             <Icon name={"dropbox"} size={80} color={'#07f'} style={{position:"absolute",marginTop:-50}} />
                         </ViewOverflow>
+
+                        <TouchableOpacity style={{width:150,height:50,alignItems:"center",justifyContent:"center",backgroundColor:"#13d0ff"}} onPress={()=>{Actions.测试模态框组件()}}>
+                            <Text style={{color:"#000"}}>测试模态框组件</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </ScrollView>
 
