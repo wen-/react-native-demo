@@ -10,7 +10,7 @@ import {
     DeviceEventEmitter,
     NativeModules
 } from 'react-native';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import { StackViewStyleInterpolator } from 'react-navigation-stack';
 import {
     Scene,
     Router,
@@ -92,6 +92,10 @@ const getSceneStyle = () => ({
     shadowRadius: 3,
 });
 
+const transitionConfig = () => ({
+  screenInterpolator: StackViewStyleInterpolator.forHorizontal,
+});
+
 export default class App extends Component{
 
     constructor(props) {
@@ -113,30 +117,18 @@ export default class App extends Component{
 
                 <Overlay key="overlay">
                     <Scene key="root" hideNavBar gesturesEnabled={false}
-                           transitionConfig={() => ({
-                               screenInterpolator: (props) => {
-                                   switch (props.scene.route.params.direction) {
-                                       case 'vertical':
-                                           return CardStackStyleInterpolator.forVertical(props);
-                                       case 'fade':
-                                           return CardStackStyleInterpolator.forFade(props);
-                                       case 'none':
-                                           return CardStackStyleInterpolator.forInitial
-                                       case 'horizontal':
-                                       default:
-                                           return CardStackStyleInterpolator.forHorizontal(props)
-                                   }
-                               }
-                           })}
+                           transitionConfig={transitionConfig}
                     >
                         <Scene key="启动页" component={SplashPage} title="启动" initial direction="fade"/>
                         <Scene key="主界面" title="swiper" hideNavBar direction="fade" navigationBarStyle={styles.navigationBar} titleStyle={styles.navigationBarTitle}>
                             <Tabs
-                                key="标签组" showLabel={true}
+                                key="标签组"
+                                showLabel={true}
                                 tabBarPosition="bottom"
-                                swipeEnabled={false}
+                                swipeEnabled={true}
                                 lazy={true}
-                                tabBarComponent={Platform.OS == 'ios'?null:CustomTabBarComponent}
+                                //0.57RN版本无需自定义tabBar即可实现中间大按钮
+                                //tabBarComponent={Platform.OS == 'ios'?null:CustomTabBarComponent}
                                 activeBackgroundColor="white"
                                 inactiveBackgroundColor="white"
                             >
