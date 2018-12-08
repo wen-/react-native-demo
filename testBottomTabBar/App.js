@@ -73,7 +73,8 @@ const App = () => (
               showLabel={true}
               tabBarPosition="bottom"
               swipeEnabled={true}
-              lazy={true}
+              lazy={false}
+              legacy={true}
               activeBackgroundColor="white"
               inactiveBackgroundColor="white"
             >
