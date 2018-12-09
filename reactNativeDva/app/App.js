@@ -1,0 +1,20 @@
+import React from 'react';
+
+import dva from 'dva-no-router';
+import { createLogger } from 'redux-logger';
+import Router from './Router';
+import Models from './dvaModel';
+
+const app = dva({
+  initialState: {},
+  onAction: createLogger()
+});
+
+Object.keys(Models).map((key) => {
+  app.model(Models[key]);
+  return null;
+});
+
+app.router(() => (<Router />));
+
+export default app.start();
