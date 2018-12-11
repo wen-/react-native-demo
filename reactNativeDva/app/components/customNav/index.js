@@ -51,14 +51,21 @@ export default class CustomNavBar extends React.Component {
         super(props);
         this.state={
             透明度: 0,
+            currentScene: props.initialRouteName,
         }
     }
 
     componentWillMount(){
         this.订阅改变导航透明度 = DeviceEventEmitter.addListener('改变导航透明度', (params) => {
-            this.setState({
-                透明度:params.透明度
-            });
+            // this.setState({
+            //     透明度:params.透明度
+            // });
+
+          //两种方式改变导航背景色。
+          let _rgba = 'rgba(255,255,255,'+params.透明度+')';
+          this.navBar.setNativeProps({
+            backgroundColor: _rgba
+          });
         });
     }
 
@@ -69,7 +76,7 @@ export default class CustomNavBar extends React.Component {
     }
 
     _renderLeft() {
-        if (Actions.currentScene === '首页' || Actions.currentScene === '我的') {
+        if (['首页', '中间', '我的'].includes(this.state.currentScene)) {
             return null;
         } else {
             return (
@@ -93,7 +100,7 @@ export default class CustomNavBar extends React.Component {
     }
 
     _renderRight() {
-        if (Actions.currentScene === '我的') {
+        if (this.state.currentScene === '我的') {
             return (
                 <View style={[styles.navBarRightItem, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                     <TouchableOpacity
@@ -112,19 +119,25 @@ export default class CustomNavBar extends React.Component {
 
     render() {
         let dinamicStyle = {};
-        if (Actions.currentScene === '我的') {
+        if (this.state.currentScene === '我的') {
             let _rgba = 'rgba(255,255,255,'+this.state.透明度+')';
             dinamicStyle = {position:"absolute", width:"100%",top:0, backgroundColor: _rgba}
             if(this.state.透明度 > 0.5){
-                dinamicStyle.borderBottomWidth = 1;
+                dinamicStyle.borderBottomWidth = StyleSheet.hairlineWidth;
                 dinamicStyle.borderBottomColor = "#ddd";
+                dinamicStyle.shadowOffset = {width:0,height:1};
+                dinamicStyle.shadowColor = "#ddd";
+                dinamicStyle.shadowOpacity = .5;
+            }else{
+                dinamicStyle.borderBottomWidth = StyleSheet.hairlineWidth;
+                dinamicStyle.borderBottomColor = "transparent";
                 dinamicStyle.shadowOffset = {width:0,height:1};
                 dinamicStyle.shadowColor = "#ddd";
                 dinamicStyle.shadowOpacity = .5;
             }
         } else {
             dinamicStyle.backgroundColor = '#fff';
-            dinamicStyle.borderBottomWidth = 1;
+            dinamicStyle.borderBottomWidth = StyleSheet.hairlineWidth;
             dinamicStyle.borderBottomColor = "#ddd";
             dinamicStyle.shadowOffset = {width:0,height:1};
             dinamicStyle.shadowColor = "#ddd";
@@ -132,7 +145,7 @@ export default class CustomNavBar extends React.Component {
         }
 
         return (
-            <View style={[styles.container, dinamicStyle]}>
+            <View style={[styles.container, dinamicStyle]} ref={(nav)=>{this.navBar = nav}}>
                 { this._renderLeft() }
                 { this._renderMiddle() }
                 { this._renderRight() }
