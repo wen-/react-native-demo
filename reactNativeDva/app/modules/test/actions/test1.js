@@ -1,4 +1,4 @@
-import BaseActions from '../../../tools/baseActions'
+import BaseActions from 'tools/baseActions'
 
 export default class Actions extends BaseActions{
 

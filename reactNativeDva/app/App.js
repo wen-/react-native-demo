@@ -15,6 +15,6 @@ Object.keys(Models).map((key) => {
   return null;
 });
 
-app.router(() => (<Router />));
+app.router(() => (<Router {...this.props} />));
 
 export default app.start();

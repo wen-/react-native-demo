@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { StackViewStyleInterpolator } from 'react-navigation-stack';
 import { Scene, Router, Actions, Reducer, ActionConst, Overlay, Tabs, Modal, Drawer, Stack, Lightbox } from 'react-native-router-flux';
@@ -7,6 +7,7 @@ import CustomNavBar from './components/customNav'
 import Test1 from './modules/test/views/test1';
 import Test2 from './modules/test/views/test2';
 import Test3 from './modules/test/views/test3';
+import ToastView from 'components/base/toastView';
 
 const styles = StyleSheet.create({
   container: {
@@ -82,32 +83,32 @@ const Example = () => (
   <Router createReducer={reducerCreate} onStateChange={stateHandler} getSceneStyle={getSceneStyle} uriPrefix={prefix}>
     <Overlay key="overlay">
       <Modal key="modal" hideNavBar transitionConfig={transitionConfig}>
-          <Scene key="root" titleStyle={{ alignSelf: 'center' }} hideNavBar>
-            <Tabs
-              key="标签组"
-              showLabel={true}
-              tabBarPosition="bottom"
-              swipeEnabled={false}
-              lazy={true}
-              legacy={false}
-              activeBackgroundColor="white"
-              inactiveBackgroundColor="white"
-            >
-              <Stack key="首页标签" tabBarLabel="首页" initial icon={TabIcon} icontext="dropbox">
-                <Scene key="首页" component={Test1} title="首页" navBar={CustomNavBar} />
-              </Stack>
+        <Scene key="root" titleStyle={{ alignSelf: 'center' }} hideNavBar>
+          <Tabs
+            key="标签组"
+            showLabel={true}
+            tabBarPosition="bottom"
+            swipeEnabled={false}
+            lazy={true}
+            legacy={false}
+            activeBackgroundColor="white"
+            inactiveBackgroundColor="white"
+          >
+            <Stack key="首页标签" tabBarLabel="首页" initial icon={TabIcon} icontext="dropbox">
+              <Scene key="首页" component={Test1} title="首页" navBar={CustomNavBar} />
+            </Stack>
 
-              <Stack key="中间标签" tabBarLabel=" " showLabel={false} icon={TabIcon} icontext="paper-plane">
-                <Scene key="中间" component={Test2} title="中间" navBar={CustomNavBar} />
-              </Stack>
+            <Stack key="中间标签" tabBarLabel=" " showLabel={false} icon={TabIcon} icontext="paper-plane">
+              <Scene key="中间" component={Test2} title="中间" navBar={CustomNavBar} />
+            </Stack>
 
-              <Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
-                <Scene key="我的" component={Test3} title="我的" navBar={CustomNavBar} />
-              </Stack>
+            <Stack key="我的标签" tabBarLabel="我的" icon={TabIcon} icontext="user">
+              <Scene key="我的" component={Test3} title="我的" navBar={CustomNavBar} />
+            </Stack>
 
-            </Tabs>
-          </Scene>
-
+          </Tabs>
+        </Scene>
+        <Scene key="ToastView" component={ToastView} title="ToastView" navBar={CustomNavBar} />
       </Modal>
 
     </Overlay>
