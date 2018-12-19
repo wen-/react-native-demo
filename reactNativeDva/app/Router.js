@@ -8,6 +8,7 @@ import Test1 from './modules/test/views/test1';
 import Test2 from './modules/test/views/test2';
 import Test3 from './modules/test/views/test3';
 import ToastView from 'components/base/toastView';
+import DialogsView from 'components/base/dialogsView';
 
 const styles = StyleSheet.create({
   container: {
@@ -109,6 +110,7 @@ const Example = () => (
           </Tabs>
         </Scene>
         <Scene key="ToastView" component={ToastView} title="ToastView" navBar={CustomNavBar} />
+        <Scene key="DialogsView" component={DialogsView} title="DialogsView" navBar={CustomNavBar} />
       </Modal>
 
     </Overlay>

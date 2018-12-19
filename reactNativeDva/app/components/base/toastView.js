@@ -7,17 +7,27 @@ import {
   Easing
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Spinner from 'react-native-spinkit';
+ViewToast = null;
 
 export default class ToastView extends Component {
 
   static propTypes = {
-    message:PropTypes.string,
+    toastType: PropTypes.string,
+    loadType: PropTypes.string,
+  message:PropTypes.string,
     duration: PropTypes.number,
+    size: PropTypes.number,
+    color: PropTypes.string,
   };
 
   static defaultProps = {
-    message: "暂无提示信息",
+    toastType: "loading", //loading、info
+    loadType: "Circle", //'CircleFlip', 'Bounce', 'Wave', 'WanderingCubes', 'Pulse', 'ChasingDots', 'ThreeBounce', 'Circle', '9CubeGrid', 'WordPress', 'FadingCircle', 'FadingCircleAlt', 'Arc', 'ArcAlt'
+    message: "",
     duration: 2000,
+    size: 30,
+    color: "#fff"
   };
 
   opacityAnim = new Animated.Value(0);
@@ -25,9 +35,14 @@ export default class ToastView extends Component {
 
   constructor(props) {
     super(props);
+    ViewToast = this;
     this.state = {
+      toastType: props.toastType,
+      loadType: props.loadType,
+      size: props.size,
+      color: props.color,
       message: props.message,
-      duration: props.duration||2000,
+      duration: props.duration,
     }
   }
 
@@ -45,11 +60,17 @@ export default class ToastView extends Component {
   componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
     this.setState({
+      toastType: nextProps.toastType,
+      loadType: nextProps.loadType,
+      size: nextProps.size,
+      color: nextProps.color,
       message: nextProps.message,
       duration: nextProps.duration,
+    },function () {
+      this.timingDismiss();
     });
     clearTimeout(this.dismissHandler);
-    this.timingDismiss();
+
   }
 
   componentWillUnmount() {
@@ -57,20 +78,20 @@ export default class ToastView extends Component {
   }
 
   timingDismiss = () => {
-    this.dismissHandler = setTimeout(() => {
-      this.dismiss();
-    }, this.state.duration);
+    (this.state.toastType == 'info') && (this.dismissHandler = setTimeout(() => {
+      ToastView.dismiss();
+    }, this.state.duration));
   };
 
-  dismiss = () => {
+  static dismiss = () => {
     Animated.timing(
-      this.opacityAnim,
+      ViewToast.opacityAnim,
       {
         toValue: 0,
         duration: 100,
         easing: Easing.linear
       },
-    ).start(this.onDismiss);
+    ).start(ViewToast.onDismiss);
   };
 
   onDismiss = () => {
@@ -80,10 +101,12 @@ export default class ToastView extends Component {
   };
 
   render() {
+    const { toastType, loadType, size, color, message } = this.state;
     return (
       <View style={styles.container} pointerEvents='box-none'>
         <Animated.View style={[styles.textContainer, {opacity: this.opacityAnim, transform: [{ scale: this.opacityAnim }]}]}>
-          <Text style={styles.defaultText}>{this.state.message}</Text>
+          {toastType == "loading" && <Spinner style={{margin: 10}} size={size} type={loadType} color={color}/>}
+          {!!message && <Text style={styles.defaultText}>{message}</Text>}
         </Animated.View>
       </View>
     )
@@ -101,6 +124,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     margin:10,
     maxWidth: 300,
+    alignItems: 'center'
   },
   defaultText: {
     color: "#FFF",

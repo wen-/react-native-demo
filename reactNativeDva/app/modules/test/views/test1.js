@@ -21,7 +21,9 @@ export default class Test1 extends Component {
   }
 
   componentDidMount() {
-    Toast.show({msg: '测试toast提示框', duration: 5000});
+    //Toast.info('测试toast提示框');
+    //Toast.info({msg: '测试toast提示框', duration: 3000, onDismiss: ()=>{Toast.info('toast提示框')}});
+    Toast.loading({msg: "加载中"});
   }
 
   render() {
@@ -31,6 +33,8 @@ export default class Test1 extends Component {
           <Text>左姓名：{this.props.testData.name}</Text>
           <TouchableOpacity onPress={()=>{
             this.changeName(123);
+            //Toast.info({msg: "加载成功"});
+            Toast.hide();
           }}>
             <Text>修改姓名为：123</Text>
           </TouchableOpacity>

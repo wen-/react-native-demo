@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'dva-no-router';
 import Toast from 'components/base/toast';
+import Dialogs from 'components/base/dialogs';
 //import Actions from '../actions/test1';
 
 const mapStateToProps = ({ testData }) => ({ testData, title: '测试页' });
@@ -26,13 +27,13 @@ export default class Test1 extends Component {
       <View style={{flex: 1}}>
         <Text>中姓名：{this.props.testData.name}</Text>
         <TouchableOpacity onPress={()=>{
-          Toast.show({msg: '1111111111'});
+          Dialogs.alert('1111111111');
         }}>
           <Text>测试提示框1</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>{
-          Toast.show('222222');
+          Dialogs.confirm({msg: '222222222222222222', cancelPress: ()=>{console.log('点了取消')}, confirmPress: ()=>{console.log('点了确定')}});
         }}>
           <Text>测试提示框2</Text>
         </TouchableOpacity>
