@@ -5,7 +5,8 @@ import {
   Text,
   Animated,
   Easing,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -43,6 +44,9 @@ export default class DislogsView extends Component {
   }
 
   componentDidMount() {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
     Animated.timing(
       this.opacityAnim,
       {
@@ -64,7 +68,7 @@ export default class DislogsView extends Component {
   }
 
   componentWillUnmount() {
-
+    this.backHandler.remove();
   }
 
   dismiss = (onDismiss) => {
