@@ -21,9 +21,10 @@ export default class Test1 extends Component {
   }
 
   componentDidMount() {
+    this.init();
     //Toast.info('测试toast提示框');
     //Toast.info({msg: '测试toast提示框', duration: 3000, onDismiss: ()=>{Toast.info('toast提示框')}});
-    Toast.loading({msg: "加载中"});
+    //Toast.loading({msg: "加载中"});
   }
 
   render() {

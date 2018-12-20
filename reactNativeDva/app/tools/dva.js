@@ -1,3 +1,4 @@
+/*==作废==*/
 import React from 'react';
 import { create } from 'dva-core';
 import { Provider, connect } from 'react-redux';

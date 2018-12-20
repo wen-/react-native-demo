@@ -1,17 +1,12 @@
 import RNFetchBlob from 'rn-fetch-blob';
-import { DeviceEventEmitter, Platform } from 'react-native';
-import dialog from '@components/base/dialog';
+import { Platform } from 'react-native';
+import Toast from 'components/base/toast';
 
 const config = {
-  // 指示器,iOS专属
+  // iOS状态栏加载指示器
   indicator: true,
   // 超时
-  timeout: 15000
-  // 缓存地址
-  // path : string,
-  // appendExt : string,
-  // session : string,
-  // addAndroidDownloads : any,
+  timeout: 60000
 };
 
 function toQueryString(obj) {
@@ -22,25 +17,44 @@ function toQueryString(obj) {
     : '';
 }
 
-// 网络请求状态
-const RequestStatus = {
-  success: '200', // 请求成功
-  failed: '100', // 请求失败
-  sessionExpired: '2', // 请求会话过期
-  noPermission: '3', // 请求无权限
-  timeout: '4', // 请求超时
-  offline: 'offline', // 请求超时
-  other: '5' // 其他错误
-};
+/**
+ * 请求参数
+ * @param url
+ * @param params
+ * @param isShowLoading
+ * @param isShowError
+ * @param method
+ * @returns {Promise}
+ */
+function requestHandle(url, params = null, method = 'POST') {
+  // 加上所有你需要的header公共参数,比如Authorization
+  const _header = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Connection': 'close',
+    'Accept-Language': 'zh-cn',
+    'User-Agent': Platform.OS === 'ios' ? 'iOS' : 'Android',
+  };
 
-// let requestCount = 0;
-function showLoading() {
-  dialog.toast.loading(0);
-  // requestCount += 1;
-}
+  let _url = url;
+  if (method == 'GET' && params) {
+    if(url.includes('?')){
+      _url += `&${toQueryString(params)}`;
+    }else{
+      _url += `?${toQueryString(params)}`;
+    }
+  }
 
-function hideLoading() {
-  dialog.toast.hide();
+  let _params;
+  if (method == 'POST' && params) {
+    _params = JSON.stringify(params);
+  }
+
+  console.info('%c 开始请求URL: ', 'backgroundColor:#f00,color: #fff', _url);
+  console.info('%c 请求方法: ', 'color: #f00', method);
+  console.info('%c 请求头: ', 'color: #f00', _header);
+  console.info('%c 请求参数: ', 'color: #f00', _params);
+
+  return RNFetchBlob.config(config).fetch(method, _url, _header, _params);
 }
 
 /**
@@ -52,169 +66,54 @@ function hideLoading() {
  * @param method
  * @returns {*}
  */
-async function requestHandle(url, params = null, isShowLoading, isShowError = true, method = 'POST') {
+async function requestHandleVal(url, params = null, isShowLoading=true, isShowError = true, method = 'POST') {
   // 加上所有你需要的header公共参数,比如Authorization
-  const _method = method;
-
-  const userInfo = await Store.get('userInfo');
-  const authorization = do {
-    if (!userInfo) {
-      undefined;
-    } else if (!userInfo.authorization) {
-      undefined;
-    } else {
-      `Bearer ${userInfo.authorization}`;
-      // Bearer
-    }
-  };
   const _header = {
     'Content-Type': 'application/json;charset=UTF-8',
     'Connection': 'close',
     'Accept-Language': 'zh-cn',
-    'User-Agent': Platform.OS === 'ios' ? 'IOS' : 'Android',
-    Authorization: authorization,
+    'User-Agent': Platform.OS === 'ios' ? 'iOS' : 'Android',
   };
 
   let _url = url;
-  if (_method === 'GET' && !isEmpty(params)) {
-    _url += `?${toQueryString(params)}`;
+  if (method == 'GET' && params) {
+    if(url.includes('?')){
+      _url += `&${toQueryString(params)}`;
+    }else{
+      _url += `?${toQueryString(params)}`;
+    }
   }
 
   let _params;
-  if (_method === 'POST' && !isEmpty(params)) {
+  if (method == 'POST' && params) {
     _params = JSON.stringify(params);
   }
-  if (isShowLoading) { showLoading(); }
+
+  if (isShowLoading) { Toast.loading(); }
+
   try {
-    console.info('%c begin request URI: ', 'background: red; color: #fff', _url);
-    const responseData = await RNFetchBlob.config(config).fetch(_method, _url, _header, _params);
+    console.info('%c 开始请求URL: ', 'backgroundColor:#f00,color: #fff', _url);
+    console.info('%c 请求方法: ', 'color: #f00', method);
+    console.info('%c 请求头: ', 'color: #f00', _header);
+    console.info('%c 请求参数: ', 'color: #f00', params);
+
+    const responseData = await RNFetchBlob.config(config).fetch(method, _url, _header, _params);
     const resultData = responseData.data
       ? JSON.parse(responseData.data)
       : { code: 'noJson', message: '接口数据错误，请稍后再试', data: responseData };
-    log(_method, _url, _params, authorization, resultData);
-    const handled = errInterception(resultData);
-    !handled && resultHandle(resultData, isShowLoading, isShowError);
+
+    console.info('%c 返回数据: ', 'backgroundColor:#f00,color: #fff', resultData);
+
+    if(isShowError && resultData.code != 200){ Toast.info(resultData.message); }
+    if(isShowLoading && !(isShowError && resultData.code != 200)){ Toast.hide(); }
     return resultData;
   } catch (err) {
+    console.info('%c 请求URL出错: ', 'backgroundColor:#f00,color: #fff', _url, err);
     const formatError = formatNetworkError(err);
-    resultHandle(formatError, isShowLoading, isShowError);
-    log(_method, _url, _params, formatError);
+    if(isShowError){ Toast.info(formatError.message); }
+    if(isShowLoading && !isShowError){ Toast.hide(); }
     return formatError;
   }
-}
-
-/**
- * @param url  上传文件地址
- * @param opts 必须遵守{uri: uri, type: 'multipart/form-data', name: 'image.png'}格式
- * @param onProgress
- * @returns {Promise}
- */
-function uploadFormHandle(url, opts = {}, onProgress) {
-  return new Promise((res, rej) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', url);
-    Object.keys(opts.headers || {})
-      .forEach((feild) => {
-        const value = opts.headers[feild];
-        xhr.setRequestHeader(feild, value);
-      });
-    xhr.onload = e => res(e.target);
-    xhr.onerror = rej;
-    // event.loaded / event.total * 100 ; //event.lengthComputable
-    if (xhr.upload && onProgress) xhr.upload.onprogress = onProgress;
-    xhr.send(opts.body);
-  });
-}
-
-/**
- * 下载的文件地址
- * @param fromUrl
- * @param downloadDest
- * @param progress
- * @param background
- * @returns {*}
- */
-function downloadHandle(fromUrl, downloadDest, progress, background) {
-  return RNFS.downloadFile({
-    fromUrl,
-    toFile: downloadDest,
-    headers: {
-      Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJlYWYiLCJzdWIiOiJkZnMiLCJhdWQiOiJkZXZlbG9wZXJzIiwiaWF0IjoxNTE2MDk2NzEzfQ.VXgN6b_H-q66VuLBZRQEzbGgWRTatgAQ4zto2OZ-oJG3hzSFN4kvZkW4EsMg8YyBO4uZW8AYh9x9dRFkpfRLew'
-    },
-    progress,
-    background
-  });
-}
-
-// ============== util start
-
-/**
- * 错误日志打印
- * @param method
- * @param api
- * @param data
- * @param Authorization
- * @param result
- */
-function log(method, api, data, Authorization, result) {
-  if (__DEV__ && console.group) {
-    const styles = {
-      method: () => 'color: #dd1c65',
-      url: () => 'color: #000',
-      data: () => 'color: #4CAF50',
-      Authorization: () => 'color: #4CAF50',
-      result: () => 'color: #03A9F4'
-    };
-    console.group(`%c ${method} %c ${api}`, styles.method(), styles.url());
-    console.log('%c data', styles.data(), cloneDeep(data));
-    console.log('%c Authorization', styles.Authorization(), { Authorization });
-    console.log('%c result', styles.result(), cloneDeep(result));
-    try {
-      console.groupEnd();
-    } catch (e) {
-      console.log('—— log end ——');
-    }
-  }
-}
-
-/**
- * 强制拦截接口指定的返回错误, 必须要拦截的写在下面, 一般无需拦截
- * example: 1111111 用户信息更新， 000000 会话失效，000002空指针异常，要求跳到登录页
- * warning: 该方法拦截的错误不受isShowError的值控制
- * @param resData
- * @param isShowLoading
- * @returns {boolean}
- */
-function errInterception(resData, isShowLoading) {
-  let handleMsg;
-  if (resData.code === '1111111') {
-    handleMsg = '请重新刷新该页面';
-  }
-  if (resData.code === '000000') {
-    handleMsg = resData.message;
-  }
-  if (resData.code === '000002') {
-    global.Authorization = ''; // 清空Authorization
-    handleMsg = '系统升级中， 请稍后再试';
-  }
-
-  if (resData.code === '800023') { // 被其他设备登录
-    handleMsg = resData.message;
-
-    DeviceEventEmitter.emit('NeedRefreshUser');
-  }
-
-  if (handleMsg) {
-    resultHandle(
-      {
-        ...resData, message: handleMsg
-      },
-      isShowLoading,
-      true
-    );
-    return true;
-  }
-  return false;
 }
 
 /**
@@ -231,25 +130,10 @@ function formatNetworkError(error) {
     dialog.toast.info('请求超时，请稍后再试');
     return { code: 'timeout', message: '网络异常，请稍后重试', data: '网络异常，请稍后重试' };
   }
-  return { code: 'unknown', message: '系统升级中，请稍后重试', data: errMsg };
+  return { code: 'unknown', message: '网络异常，请稍后重试', data: errMsg };
 }
 
-/**
- * ui展示错误信息
- * @param formatError
- * @param isShowLoading
- * @param isShowError
- */
-function resultHandle(formatError, isShowLoading, isShowError) {
-  isShowLoading && hideLoading();
-  isShowError && formatError.code != RequestStatus.success && dialog.toast.info(formatError.message);
-}
-
-// ============ util end
-
-export {
-  RequestStatus,
+export default {
   requestHandle,
-  uploadFormHandle,
-  downloadHandle
+  requestHandleVal
 };
