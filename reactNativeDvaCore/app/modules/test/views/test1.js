@@ -11,10 +11,7 @@ import { connect } from 'tools/dva';
 import Toast from 'components/base/toast';
 import Actions from '../actions/test1';
 
-const mapStateToProps = ({ testData }) => ({ testData, title: '测试页' });
-
-@connect(mapStateToProps)
-export default class Test1 extends Component {
+class Test1 extends Component {
   constructor(props) {
     super(props);
     new Actions(this);
@@ -31,7 +28,7 @@ export default class Test1 extends Component {
     const { title } = this.props;
     return (
         <View style={{flex:1}}>
-          <Text>左姓名：{this.props.testData.name}</Text>
+          <Text>左姓名：{this.props.testData&&this.props.testData.name}</Text>
           <TouchableOpacity onPress={()=>{
             this.changeName(123);
             //Toast.info({msg: "加载成功"});
@@ -43,3 +40,5 @@ export default class Test1 extends Component {
     );
   }
 }
+//此处不推荐用装饰器
+export default connect(({ testData }) => ({ testData, title: '测试页' }))(Test1);

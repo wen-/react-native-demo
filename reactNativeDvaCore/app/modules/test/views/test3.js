@@ -10,10 +10,7 @@ import {
 import { connect } from 'tools/dva';
 //import Actions from '../actions/test1';
 
-const mapStateToProps = ({ testData }) => ({ testData });
-
-@connect(mapStateToProps)
-export default class Test1 extends Component {
+class Test3 extends Component {
   constructor(props) {
     super(props);
     //new Actions(this);
@@ -41,3 +38,5 @@ export default class Test1 extends Component {
     );
   }
 }
+
+export default connect(({ testData }) => ({ testData, title: '测试页' }))(Test3);

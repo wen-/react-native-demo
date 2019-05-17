@@ -15,7 +15,7 @@ export default class ToastView extends Component {
   static propTypes = {
     toastType: PropTypes.string,
     loadType: PropTypes.string,
-  message:PropTypes.string,
+    message:PropTypes.string,
     duration: PropTypes.number,
     size: PropTypes.number,
     color: PropTypes.string,
@@ -84,7 +84,7 @@ export default class ToastView extends Component {
   };
 
   static dismiss = () => {
-    Animated.timing(
+    ViewToast && Animated.timing(
       ViewToast.opacityAnim,
       {
         toValue: 0,

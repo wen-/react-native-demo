@@ -5,7 +5,7 @@ import {
 export default {
   namespace: 'testData',
   state: {
-    name: '测试员',
+    name: '测试员11111',
   },
   effects: {
     //详情
@@ -14,7 +14,7 @@ export default {
       const result = yield call(fetchOrderDetail, params);
       if(result.code==200) {
         const data = result.data;
-        yield put({ type: 'setOrdersDetail', data });
+        yield put({ type: 'setOrdersDetail', data: {name: data} });
       }
     }
   },

@@ -12,10 +12,7 @@ import Toast from 'components/base/toast';
 import Dialogs from 'components/base/dialogs';
 //import Actions from '../actions/test1';
 
-const mapStateToProps = ({ testData }) => ({ testData, title: '测试页' });
-
-@connect(mapStateToProps)
-export default class Test1 extends Component {
+class Test2 extends Component {
   constructor(props) {
     super(props);
     //new Actions(this);
@@ -41,3 +38,5 @@ export default class Test1 extends Component {
     );
   }
 }
+
+export default connect(({ testData }) => ({ testData, title: '测试页' }))(Test2);
